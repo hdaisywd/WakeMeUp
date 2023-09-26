@@ -4,7 +4,7 @@ import UIKit
 
 class AlarmVC: UIViewController {
     
-    
+    static let alarmTableViewIdentifier = "AlarmTableViewCell"
     
     // MARK: Property
     private let header = {
@@ -16,8 +16,11 @@ class AlarmVC: UIViewController {
         return label
     }()
     
-    private let alarmList = {
+    lazy var alarmList = {
         let tableview = UITableView()
+        tableview.dataSource = self
+        tableview.delegate = self
+        tableview.register(AlarmTableViewCell.self, forCellReuseIdentifier: AlarmVC.alarmTableViewIdentifier)
         
         return tableview
     }()
@@ -76,7 +79,7 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! AlarmTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: AlarmVC.alarmTableViewIdentifier, for: indexPath) as! AlarmTableViewCell
         
         return cell
     }
