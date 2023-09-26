@@ -4,6 +4,8 @@ import UIKit
 
 class AlarmVC: UIViewController {
     
+    
+    
     // MARK: Property
     private let header = {
         let label = UILabel()
@@ -51,5 +53,31 @@ class AlarmVC: UIViewController {
             alarmList.trailingAnchor.constraint(equalTo: header.trailingAnchor),
             alarmList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+// MARK: TableView Delegate, DataSource Settings
+extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Must"
+        } else {
+            return "Do"
+        }
+    }
+
+    // Header 사이즈
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40.0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! AlarmTableViewCell
+        
+        return cell
     }
 }
