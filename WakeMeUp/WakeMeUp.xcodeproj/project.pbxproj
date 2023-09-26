@@ -10,6 +10,7 @@
 		AB99C7E22AC25B1900033060 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7E12AC25B1900033060 /* CalendarVC.swift */; };
 		AB99C7E42AC25C1500033060 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7E32AC25C1500033060 /* Extension.swift */; };
 		AB99C7E62AC2A77B00033060 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7E52AC2A77B00033060 /* CustomTableViewCell.swift */; };
+		AB99C7ED2AC2C9B700033060 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = AB99C7EC2AC2C9B700033060 /* SnapKit */; };
 		ABEAB8D92AC1715400078F72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEAB8D82AC1715400078F72 /* AppDelegate.swift */; };
 		ABEAB8DB2AC1715400078F72 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEAB8DA2AC1715400078F72 /* SceneDelegate.swift */; };
 		ABEAB8DD2AC1715400078F72 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEAB8DC2AC1715400078F72 /* ViewController.swift */; };
@@ -47,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB99C7ED2AC2C9B700033060 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +141,9 @@
 			dependencies = (
 			);
 			name = WakeMeUp;
+			packageProductDependencies = (
+				AB99C7EC2AC2C9B700033060 /* SnapKit */,
+			);
 			productName = WakeMeUp;
 			productReference = ABEAB8D52AC1715400078F72 /* WakeMeUp.app */;
 			productType = "com.apple.product-type.application";
@@ -167,6 +172,9 @@
 				Base,
 			);
 			mainGroup = ABEAB8CC2AC1715400078F72;
+			packageReferences = (
+				AB99C7EB2AC2C9B700033060 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = ABEAB8D62AC1715400078F72 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -422,6 +430,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AB99C7EB2AC2C9B700033060 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AB99C7EC2AC2C9B700033060 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB99C7EB2AC2C9B700033060 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		ABEAB8E12AC1715500078F72 /* WakeMeUp.xcdatamodeld */ = {
