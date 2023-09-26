@@ -2,7 +2,7 @@
 import Foundation
 import UIKit
 
-class CustomTableViewCell: UITableViewCell {
+class AlarmTableViewCell: UITableViewCell {
     
     lazy var title = {
         let label = UILabel()

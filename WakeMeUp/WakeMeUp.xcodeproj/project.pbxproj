@@ -53,6 +53,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB99C7E72AC2BE5200033060 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				ABEAB8F82AC186F600078F72 /* AlarmVC.swift */,
+				AB99C7E52AC2A77B00033060 /* CustomTableViewCell.swift */,
+			);
+			path = Alarm;
+			sourceTree = "<group>";
+		};
 		ABEAB8CC2AC1715400078F72 = {
 			isa = PBXGroup;
 			children = (
@@ -91,12 +100,11 @@
 		ABEAB8EF2AC1832500078F72 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				ABEAB8F82AC186F600078F72 /* AlarmVC.swift */,
+				AB99C7E72AC2BE5200033060 /* Alarm */,
 				ABEAB8F22AC1869100078F72 /* TimerVC.swift */,
 				ABEAB8F62AC186A600078F72 /* StopwatchVC.swift */,
 				AB99C7E12AC25B1900033060 /* CalendarVC.swift */,
 				ABEAB8F42AC1869C00078F72 /* GameVC.storyboard */,
-				AB99C7E52AC2A77B00033060 /* CustomTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
