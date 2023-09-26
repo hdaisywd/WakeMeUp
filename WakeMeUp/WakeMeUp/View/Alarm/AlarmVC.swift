@@ -6,6 +6,8 @@ class AlarmVC: UIViewController {
     
     static let alarmTableViewIdentifier = "AlarmTableViewCell"
     
+    let data = [1, 2, 3]
+    
     // MARK: Property
     private let header = {
         let label = UILabel()
@@ -62,7 +64,7 @@ class AlarmVC: UIViewController {
 // MARK: TableView Delegate, DataSource Settings
 extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -72,15 +74,23 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
             return "Do"
         }
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
 
     // Header 사이즈
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40.0
+        return 20.0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlarmVC.alarmTableViewIdentifier, for: indexPath) as! AlarmTableViewCell
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+           return tableView.rowHeight
     }
 }

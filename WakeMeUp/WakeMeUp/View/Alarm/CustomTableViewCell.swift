@@ -1,12 +1,13 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class AlarmTableViewCell: UITableViewCell {
     
     lazy var title = {
         let label = UILabel()
-        label.text = "9시 30분 스크럼"
+        label.text = "Title"
         label.font = .systemFont(ofSize: 10)
         label.textColor = .white
         
@@ -15,7 +16,7 @@ class AlarmTableViewCell: UITableViewCell {
 
     lazy var time = {
         let label = UILabel()
-        label.text = "9:25 AM"
+        label.text = "Time"
         label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .black
         
@@ -24,7 +25,7 @@ class AlarmTableViewCell: UITableViewCell {
 
     lazy var day = {
         let label = UILabel()
-        label.text = "MON TUE WED THU FRI"
+        label.text = "Days"
         label.font = .boldSystemFont(ofSize: 10)
         label.textColor = .white
         
@@ -46,6 +47,10 @@ class AlarmTableViewCell: UITableViewCell {
         contentView.addSubview(time)
         contentView.addSubview(day)
         
+        title.translatesAutoresizingMaskIntoConstraints = false
+        time.translatesAutoresizingMaskIntoConstraints = false
+        day.translatesAutoresizingMaskIntoConstraints = false 
+        
         NSLayoutConstraint.activate([
             title.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             title.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 5),
@@ -55,8 +60,8 @@ class AlarmTableViewCell: UITableViewCell {
             time.trailingAnchor.constraint(equalTo: title.trailingAnchor),
             time.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 5),
             
-            day.leadingAnchor.constraint(equalTo: title.leadingAnchor),
-            day.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            day.leadingAnchor.constraint(equalTo: time.leadingAnchor),
+            day.trailingAnchor.constraint(equalTo: time.trailingAnchor),
             day.topAnchor.constraint(equalTo: time.bottomAnchor, constant: 5)
         ])
     }
