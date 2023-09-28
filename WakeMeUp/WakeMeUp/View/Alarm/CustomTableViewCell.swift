@@ -8,7 +8,7 @@ class AlarmTableViewCell: UITableViewCell {
     lazy var title = {
         let label = UILabel()
         label.text = "Title"
-        label.font = .systemFont(ofSize: 10)
+        label.font = .systemFont(ofSize: 15)
         label.textColor = .darkGray
         
         return label
@@ -26,7 +26,7 @@ class AlarmTableViewCell: UITableViewCell {
     lazy var day = {
         let label = UILabel()
         label.text = "Days"
-        label.font = .boldSystemFont(ofSize: 10)
+        label.font = .boldSystemFont(ofSize: 15)
         label.textColor = .darkGray
         
         return label
@@ -58,7 +58,8 @@ class AlarmTableViewCell: UITableViewCell {
     }
     
     private func cellLayout() {
-        contentView.layer.cornerRadius = 10
+        contentView.layer.cornerRadius = 20
+        contentView.clipsToBounds = true
         
         contentView.addSubview(title)
         contentView.addSubview(time)
@@ -71,8 +72,8 @@ class AlarmTableViewCell: UITableViewCell {
         alarmSwitch.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            title.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5),
-            title.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5),
+            title.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
+            title.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
             title.bottomAnchor.constraint(equalTo: time.topAnchor, constant: -2),
             
             time.leadingAnchor.constraint(equalTo: title.leadingAnchor),

@@ -43,6 +43,11 @@ class AlarmVC: UIViewController {
         button.tintColor = .white
         button.setImage(image, for: .normal)
         
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 4)
+        button.layer.shadowRadius = 5
+        button.layer.shadowOpacity = 0.3
+        
         return button
     }()
     
@@ -55,7 +60,7 @@ class AlarmVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -115,14 +120,14 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlarmVC.alarmTableViewIdentifier, for: indexPath) as! AlarmTableViewCell
-
+        
         cell.selectionStyle = .none 
         cell.contentView.backgroundColor = UIColor(hexCode: "B8C0FF")
         
@@ -130,6 +135,6 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75.0
+        return 90.0
     }
 }
