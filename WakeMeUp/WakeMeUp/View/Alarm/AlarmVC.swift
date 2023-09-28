@@ -65,7 +65,7 @@ class AlarmVC: UIViewController {
     }
     
     // MARK: Layout configuration
-    func configureLayout() {
+    private func configureLayout() {
         view.addSubview(header)
         view.addSubview(alarmList)
         view.addSubview(addButton)
@@ -92,8 +92,8 @@ class AlarmVC: UIViewController {
     }
     
     @objc func addButtonAction() {
-        let presentVC = AddAlarmVC()
-        self.present(presentVC, animated: true)
+        let nextVC = UINavigationController(rootViewController: AddAlarmVC())
+        self.present(nextVC, animated: true)
     }
 }
 
