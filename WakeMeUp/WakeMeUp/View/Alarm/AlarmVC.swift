@@ -23,6 +23,7 @@ class AlarmVC: UIViewController {
         tableview.dataSource = self
         tableview.delegate = self
         tableview.register(AlarmTableViewCell.self, forCellReuseIdentifier: AlarmVC.alarmTableViewIdentifier)
+        tableview.separatorStyle = .none
         
         return tableview
     }()
@@ -30,13 +31,13 @@ class AlarmVC: UIViewController {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -51,7 +52,7 @@ class AlarmVC: UIViewController {
         NSLayoutConstraint.activate([
             header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             header.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            header.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20),
+            header.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
             alarmList.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 10),
             alarmList.leadingAnchor.constraint(equalTo: header.leadingAnchor),
@@ -63,6 +64,7 @@ class AlarmVC: UIViewController {
 
 // MARK: TableView Delegate, DataSource Settings
 extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
@@ -75,22 +77,31 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let sectionHeader = view as! UITableViewHeaderFooterView
+        sectionHeader.textLabel?.font = .boldSystemFont(ofSize: 20)
+        sectionHeader.textLabel?.textColor = .darkGray
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
     // Header 사이즈
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20.0
+        return 30.0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlarmVC.alarmTableViewIdentifier, for: indexPath) as! AlarmTableViewCell
         
+        // cell.backgroundColor = UIColor(hexCode: "B8C0FF")
+        cell.contentView.backgroundColor = UIColor(hexCode: "B8C0FF")
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           return tableView.rowHeight
+        return 70.0
     }
 }
