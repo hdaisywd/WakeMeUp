@@ -8,7 +8,7 @@ class AlarmTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "Title"
         label.font = .systemFont(ofSize: 10)
-        label.textColor = .gray
+        label.textColor = .darkGray
         
         return label
     }()
@@ -26,7 +26,7 @@ class AlarmTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "Days"
         label.font = .boldSystemFont(ofSize: 10)
-        label.textColor = .gray
+        label.textColor = .darkGray
         
         return label
     }()
@@ -43,8 +43,7 @@ class AlarmTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        print("inset ")
+
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
     }
     
@@ -62,16 +61,16 @@ class AlarmTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             title.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5),
             title.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5),
-            title.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5),
+            title.bottomAnchor.constraint(equalTo: time.topAnchor, constant: -2),
             
             time.leadingAnchor.constraint(equalTo: title.leadingAnchor),
             time.trailingAnchor.constraint(equalTo: title.trailingAnchor),
-            time.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 2),
+            time.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
+            time.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
             
             day.leadingAnchor.constraint(equalTo: time.leadingAnchor),
             day.trailingAnchor.constraint(equalTo: time.trailingAnchor),
             day.topAnchor.constraint(equalTo: time.bottomAnchor, constant: 2),
-            day.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5)
         ])
     }
 }
