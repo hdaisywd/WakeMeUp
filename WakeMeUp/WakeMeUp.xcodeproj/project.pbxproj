@@ -22,6 +22,7 @@
 		ABEAB8F52AC1869C00078F72 /* GameVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABEAB8F42AC1869C00078F72 /* GameVC.storyboard */; };
 		ABEAB8F72AC186A600078F72 /* StopwatchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEAB8F62AC186A600078F72 /* StopwatchVC.swift */; };
 		ABEAB8F92AC186F600078F72 /* AlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEAB8F82AC186F600078F72 /* AlarmVC.swift */; };
+		ABFC99E92AC5D34400095448 /* AddAlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFC99E82AC5D34400095448 /* AddAlarmVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		ABEAB8F42AC1869C00078F72 /* GameVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GameVC.storyboard; sourceTree = "<group>"; };
 		ABEAB8F62AC186A600078F72 /* StopwatchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchVC.swift; sourceTree = "<group>"; };
 		ABEAB8F82AC186F600078F72 /* AlarmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmVC.swift; sourceTree = "<group>"; };
+		ABFC99E82AC5D34400095448 /* AddAlarmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlarmVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				ABEAB8F82AC186F600078F72 /* AlarmVC.swift */,
 				AB99C7E52AC2A77B00033060 /* CustomTableViewCell.swift */,
+				ABFC99E82AC5D34400095448 /* AddAlarmVC.swift */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				ABEAB8E32AC1715500078F72 /* WakeMeUp.xcdatamodeld in Sources */,
 				ABEAB8F32AC1869100078F72 /* TimerVC.swift in Sources */,
 				ABEAB8F72AC186A600078F72 /* StopwatchVC.swift in Sources */,
+				ABFC99E92AC5D34400095448 /* AddAlarmVC.swift in Sources */,
 				ABEAB8DD2AC1715400078F72 /* ViewController.swift in Sources */,
 				AB99C7E62AC2A77B00033060 /* CustomTableViewCell.swift in Sources */,
 				ABEAB8D92AC1715400078F72 /* AppDelegate.swift in Sources */,

@@ -92,7 +92,8 @@ class AlarmVC: UIViewController {
     }
     
     @objc func addButtonAction() {
-        print("버튼 클릭함")
+        let presentVC = AddAlarmVC()
+        self.present(presentVC, animated: true)
     }
 }
 
