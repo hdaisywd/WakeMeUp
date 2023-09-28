@@ -1,16 +1,28 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class AddAlarmVC: UIViewController {
-
+    
+    // MARK: Property
+    private let datepicker = {
+        let datepicker = UIDatePicker()
+        datepicker.datePickerMode = .time
+        datepicker.preferredDatePickerStyle = .wheels
+        datepicker.locale = Locale(identifier: "en_KR")
+        
+        return datepicker
+    }()
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureNavigationBar()
+        configureLayout()
     }
-    
-    // MARK: ConfigureNavigationBar
+
     private func configureNavigationBar() {
         view.backgroundColor = .white
         
@@ -27,7 +39,12 @@ class AddAlarmVC: UIViewController {
     }
     
     private func configureLayout() {
+        view.addSubview(datepicker)
         
+        datepicker.snp.makeConstraints { make in
+            make.centerX.equalTo(self.view.snp.centerX)
+            make.top.equalTo(self.view.snp.top).offset(100)
+        }
     }
     
     @objc func cancelButtonAction() {
