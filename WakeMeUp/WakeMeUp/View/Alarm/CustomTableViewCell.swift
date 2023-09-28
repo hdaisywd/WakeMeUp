@@ -31,6 +31,13 @@ class AlarmTableViewCell: UITableViewCell {
         return label
     }()
     
+    lazy var alarmSwitch = {
+        let alarmSwitch = UISwitch()
+        alarmSwitch.onTintColor = UIColor(hexCode: "FFD6FF")
+        
+        return alarmSwitch
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -53,10 +60,12 @@ class AlarmTableViewCell: UITableViewCell {
         contentView.addSubview(title)
         contentView.addSubview(time)
         contentView.addSubview(day)
+        contentView.addSubview(alarmSwitch)
         
         title.translatesAutoresizingMaskIntoConstraints = false
         time.translatesAutoresizingMaskIntoConstraints = false
         day.translatesAutoresizingMaskIntoConstraints = false
+        alarmSwitch.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             title.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5),
@@ -71,6 +80,9 @@ class AlarmTableViewCell: UITableViewCell {
             day.leadingAnchor.constraint(equalTo: time.leadingAnchor),
             day.trailingAnchor.constraint(equalTo: time.trailingAnchor),
             day.topAnchor.constraint(equalTo: time.bottomAnchor, constant: 2),
+            
+            alarmSwitch.centerYAnchor.constraint(equalTo: centerYAnchor),
+            alarmSwitch.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10)
         ])
     }
 }

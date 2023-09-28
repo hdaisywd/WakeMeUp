@@ -94,8 +94,7 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlarmVC.alarmTableViewIdentifier, for: indexPath) as! AlarmTableViewCell
-        
-        // cell.backgroundColor = UIColor(hexCode: "B8C0FF")
+
         cell.contentView.backgroundColor = UIColor(hexCode: "B8C0FF")
         
         return cell
