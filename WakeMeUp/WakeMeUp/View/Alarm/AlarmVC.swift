@@ -18,7 +18,7 @@ class AlarmVC: UIViewController {
         return label
     }()
     
-    lazy var alarmList = {
+    private lazy var alarmList = {
         let tableview = UITableView()
         tableview.dataSource = self
         tableview.delegate = self
@@ -28,16 +28,34 @@ class AlarmVC: UIViewController {
         return tableview
     }()
     
+    private let addButtonSize = 60.0
+    
+    private lazy var addButton = {
+        let button = UIButton()
+        
+        button.frame = CGRect(x: 0, y: 0, width: addButtonSize, height: addButtonSize)
+        button.backgroundColor = UIColor(hexCode: "0077b6")
+        button.circleButton = true
+        button.addTarget(self, action: #selector(addButtonAction), for: .touchUpInside)
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .light)
+        let image = UIImage(systemName: "plus", withConfiguration: imageConfig)
+        button.tintColor = .white
+        button.setImage(image, for: .normal)
+        
+        return button
+    }()
+    
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configureLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -45,9 +63,11 @@ class AlarmVC: UIViewController {
     func configureLayout() {
         view.addSubview(header)
         view.addSubview(alarmList)
+        view.addSubview(addButton)
         
         header.translatesAutoresizingMaskIntoConstraints = false
         alarmList.translatesAutoresizingMaskIntoConstraints = false
+        addButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -57,8 +77,17 @@ class AlarmVC: UIViewController {
             alarmList.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 10),
             alarmList.leadingAnchor.constraint(equalTo: header.leadingAnchor),
             alarmList.trailingAnchor.constraint(equalTo: header.trailingAnchor),
-            alarmList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            alarmList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            addButton.heightAnchor.constraint(equalToConstant: addButtonSize),
+            addButton.widthAnchor.constraint(equalToConstant: addButtonSize)
         ])
+    }
+    
+    @objc func addButtonAction() {
+        print("버튼 클릭함")
     }
 }
 
@@ -87,7 +116,6 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
         return 2
     }
 
-    // Header 사이즈
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
     }
@@ -95,6 +123,7 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlarmVC.alarmTableViewIdentifier, for: indexPath) as! AlarmTableViewCell
 
+        cell.selectionStyle = .none 
         cell.contentView.backgroundColor = UIColor(hexCode: "B8C0FF")
         
         return cell

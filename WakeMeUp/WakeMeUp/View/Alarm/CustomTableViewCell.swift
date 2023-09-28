@@ -4,6 +4,7 @@ import UIKit
 
 class AlarmTableViewCell: UITableViewCell {
     
+    // MARK: Property
     lazy var title = {
         let label = UILabel()
         label.text = "Title"
@@ -38,6 +39,7 @@ class AlarmTableViewCell: UITableViewCell {
         return alarmSwitch
     }()
     
+    // MARK: Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -48,6 +50,7 @@ class AlarmTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: functions
     override func layoutSubviews() {
         super.layoutSubviews()
 
