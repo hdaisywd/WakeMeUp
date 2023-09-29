@@ -62,17 +62,68 @@ class AddAlarmVC: UIViewController {
         
         daysLabel.snp.makeConstraints { make in
             make.left.equalToSuperview()
-            make.centerY.equalTo(titleView.snp.centerY)
+            make.centerY.equalTo(daysView.snp.centerY)
             make.width.equalTo(self.labelWidth)
         }
         
         selectDays.snp.makeConstraints { make in
             make.left.equalTo(daysLabel.snp.right).offset(10)
-            make.centerY.equalTo(titleView.snp.centerY)
+            make.centerY.equalTo(daysView.snp.centerY)
             make.width.equalTo(self.viewWidth)
         }
         
         return daysView
+    }()
+    
+    private lazy var sound = {
+        let soundView = UIView()
+        
+        let soundLabel = UILabel()
+        soundLabel.text = "Sound"
+        soundLabel.textAlignment = .center
+        
+        let selectDays = SelectSoundPickerView()
+        
+        soundView.addSubview(soundLabel)
+        soundView.addSubview(selectDays)
+        
+        soundLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.centerY.equalTo(soundView.snp.centerY)
+            make.width.equalTo(self.labelWidth)
+        }
+        
+        selectDays.snp.makeConstraints { make in
+            make.left.equalTo(soundLabel.snp.right).offset(10)
+            make.centerY.equalTo(soundView.snp.centerY)
+            make.width.equalTo(self.viewWidth)
+        }
+        
+        return soundView
+    }()
+    
+    private lazy var selectRepeat = {
+        let selectRepeat = UIView()
+        
+        let label = UILabel()
+        label.text = "Repeat"
+        
+        let checkbox = UIButton()
+        checkbox.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+        
+        selectRepeat.addSubview(label)
+        selectRepeat.addSubview(checkbox)
+        
+        label.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.centerY.equalTo(selectRepeat.snp.centerY)
+        }
+        
+        checkbox.snp.makeConstraints { make in
+            make.left.equalTo(label.snp.right).offset(3)
+        }
+        
+        return selectRepeat
     }()
     
     // MARK: View Did Load
@@ -101,6 +152,8 @@ class AddAlarmVC: UIViewController {
     private func configureLayout() {
         view.addSubview(datepicker)
         view.addSubview(titleView)
+        view.addSubview(days)
+        view.addSubview(sound)
         
         datepicker.snp.makeConstraints { make in
             make.centerX.equalTo(self.view.snp.centerX)
@@ -110,6 +163,22 @@ class AddAlarmVC: UIViewController {
         titleView.backgroundColor = .red
         titleView.snp.makeConstraints { make in
             make.top.equalTo(datepicker.snp.bottom).offset(30)
+            make.centerX.equalTo(self.view.snp.centerX)
+            make.width.equalTo(totalViewWidth)
+            make.height.equalTo(totalViewHeight)
+        }
+        
+        days.backgroundColor = .red
+        days.snp.makeConstraints { make in
+            make.top.equalTo(titleView.snp.bottom).offset(5)
+            make.centerX.equalTo(self.view.snp.centerX)
+            make.width.equalTo(totalViewWidth)
+            make.height.equalTo(totalViewHeight)
+        }
+        
+        sound.backgroundColor = .red
+        sound.snp.makeConstraints { make in
+            make.top.equalTo(days.snp.bottom).offset(5)
             make.centerX.equalTo(self.view.snp.centerX)
             make.width.equalTo(totalViewWidth)
             make.height.equalTo(totalViewHeight)

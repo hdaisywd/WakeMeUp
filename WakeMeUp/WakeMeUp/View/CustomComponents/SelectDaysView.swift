@@ -2,6 +2,6 @@
 import Foundation
 import UIKit
 
-class SelectDaysView: UIView {
+final class SelectDaysView: UIView {
     
 }

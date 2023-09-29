@@ -6,15 +6,15 @@ final class MyTextfield: UITextField, UITextFieldDelegate {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupTextField()
+        initialConfiguration()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupTextField()
+        initialConfiguration()
     }
 
-    private func setupTextField() {
+    private func initialConfiguration() {
         self.delegate = self
         self.clearButtonMode = .always
         self.borderStyle = .roundedRect
