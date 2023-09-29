@@ -9,7 +9,7 @@ final class SelectSoundPickerView: UITextField, UIPickerViewDelegate, UIPickerVi
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialConfiguration()
-        dismissPickerView()
+        toolbarConfiguration()
     }
     
     required init?(coder: NSCoder) {
@@ -42,12 +42,15 @@ final class SelectSoundPickerView: UITextField, UIPickerViewDelegate, UIPickerVi
         return 5
     }
     
-    func dismissPickerView() {
+    func toolbarConfiguration() {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
-        let cancelBtn = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(self.action))
-        let doneBtn = UIBarButtonItem(title: "done", style: .plain, target: self, action: #selector(self.action))
-        toolBar.setItems([cancelBtn, doneBtn], animated: true)
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        
+        let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.action))
+        let doneBtn = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))
+        toolBar.setItems([cancelBtn, flexibleSpace, doneBtn], animated: true)
         toolBar.isUserInteractionEnabled = true
         self.inputAccessoryView = toolBar
     }
