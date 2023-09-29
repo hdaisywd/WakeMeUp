@@ -1,9 +1,3 @@
-//
-//  Extension.swift
-//  WakeMeUp
-//
-//  Created by Daisy Hong on 2023/09/26.
-//
 
 import Foundation
 import UIKit
