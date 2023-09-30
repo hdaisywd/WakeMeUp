@@ -6,6 +6,8 @@ class AlarmVC: UIViewController {
     
     static let alarmTableViewIdentifier = "AlarmTableViewCell"
     
+    let data = [1, 2, 3]
+    
     // MARK: Property
     private let header = {
         let label = UILabel()
@@ -16,13 +18,37 @@ class AlarmVC: UIViewController {
         return label
     }()
     
-    lazy var alarmList = {
+    private lazy var alarmList = {
         let tableview = UITableView()
         tableview.dataSource = self
         tableview.delegate = self
         tableview.register(AlarmTableViewCell.self, forCellReuseIdentifier: AlarmVC.alarmTableViewIdentifier)
+        tableview.separatorStyle = .none
         
         return tableview
+    }()
+    
+    private let addButtonSize = 60.0
+    
+    private lazy var addButton = {
+        let button = UIButton()
+        
+        button.frame = CGRect(x: 0, y: 0, width: addButtonSize, height: addButtonSize)
+        button.backgroundColor = UIColor(hexCode: "0077b6")
+        button.circleButton = true
+        button.addTarget(self, action: #selector(addButtonAction), for: .touchUpInside)
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .light)
+        let image = UIImage(systemName: "plus", withConfiguration: imageConfig)
+        button.tintColor = .white
+        button.setImage(image, for: .normal)
+        
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 4)
+        button.layer.shadowRadius = 5
+        button.layer.shadowOpacity = 0.3
+        
+        return button
     }()
     
     // MARK: Life Cycle
@@ -34,35 +60,48 @@ class AlarmVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     // MARK: Layout configuration
-    func configureLayout() {
+    private func configureLayout() {
         view.addSubview(header)
         view.addSubview(alarmList)
+        view.addSubview(addButton)
         
         header.translatesAutoresizingMaskIntoConstraints = false
         alarmList.translatesAutoresizingMaskIntoConstraints = false
+        addButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             header.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            header.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20),
+            header.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
             alarmList.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 10),
             alarmList.leadingAnchor.constraint(equalTo: header.leadingAnchor),
             alarmList.trailingAnchor.constraint(equalTo: header.trailingAnchor),
-            alarmList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            alarmList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            addButton.heightAnchor.constraint(equalToConstant: addButtonSize),
+            addButton.widthAnchor.constraint(equalToConstant: addButtonSize)
         ])
+    }
+    
+    @objc func addButtonAction() {
+        let nextVC = UINavigationController(rootViewController: AddAlarmVC())
+        self.present(nextVC, animated: true)
     }
 }
 
 // MARK: TableView Delegate, DataSource Settings
 extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -72,15 +111,31 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
             return "Do"
         }
     }
-
-    // Header 사이즈
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40.0
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let sectionHeader = view as! UITableViewHeaderFooterView
+        sectionHeader.textLabel?.font = .boldSystemFont(ofSize: 20)
+        sectionHeader.textLabel?.textColor = .darkGray
     }
-
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30.0
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlarmVC.alarmTableViewIdentifier, for: indexPath) as! AlarmTableViewCell
         
+        cell.selectionStyle = .none 
+        cell.contentView.backgroundColor = UIColor(hexCode: "B8C0FF")
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90.0
     }
 }

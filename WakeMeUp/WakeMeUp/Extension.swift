@@ -1,13 +1,8 @@
-//
-//  Extension.swift
-//  WakeMeUp
-//
-//  Created by Daisy Hong on 2023/09/26.
-//
 
 import Foundation
 import UIKit
 
+// MARK: Tabbar Shadow
 extension CALayer {
     // Sketch 스타일의 그림자를 생성하는 유틸리티 함수
     func applyShadow(
@@ -33,6 +28,7 @@ extension UITabBar {
     }
 }
 
+// MARK: Hex Code로 Color 설정
 extension UIColor {
     
     convenience init(hexCode: String, alpha: CGFloat = 1.0) {
@@ -51,5 +47,21 @@ extension UIColor {
                   green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
                   blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
                   alpha: alpha)
+    }
+}
+
+// MARK: Button settings
+extension UIButton {
+    var circleButton: Bool {
+        set {
+            if newValue {
+                self.layer.cornerRadius = self.frame.size.width / 2
+                print(self.frame.size.width)
+            } else {
+                self.layer.cornerRadius = 0
+            }
+        } get {
+            return false
+        }
     }
 }
