@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5243C1E62AC9393F00A8030D /* StopwatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C1E52AC9393F00A8030D /* StopwatchExtension.swift */; };
+		5243C1E82AC9396D00A8030D /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C1E72AC9396D00A8030D /* StopwatchView.swift */; };
 		AB1502EB2AC6152F00BBA7E4 /* MyTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1502EA2AC6152F00BBA7E4 /* MyTextfield.swift */; };
 		AB607DD12AC715C60022BCE1 /* SelectDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB607DD02AC715C60022BCE1 /* SelectDaysView.swift */; };
 		AB607DD52AC7389E0022BCE1 /* SelectSoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB607DD42AC7389E0022BCE1 /* SelectSoundView.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5243C1E52AC9393F00A8030D /* StopwatchExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchExtension.swift; sourceTree = "<group>"; };
+		5243C1E72AC9396D00A8030D /* StopwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
 		AB1502EA2AC6152F00BBA7E4 /* MyTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextfield.swift; sourceTree = "<group>"; };
 		AB607DD02AC715C60022BCE1 /* SelectDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDaysView.swift; sourceTree = "<group>"; };
 		AB607DD42AC7389E0022BCE1 /* SelectSoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSoundView.swift; sourceTree = "<group>"; };
@@ -63,6 +67,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5243C1E42AC9390900A8030D /* StopWatch */ = {
+			isa = PBXGroup;
+			children = (
+				5243C1E72AC9396D00A8030D /* StopwatchView.swift */,
+				ABEAB8F62AC186A600078F72 /* StopwatchVC.swift */,
+				5243C1E52AC9393F00A8030D /* StopwatchExtension.swift */,
+			);
+			path = StopWatch;
+			sourceTree = "<group>";
+		};
 		AB1502E92AC6151F00BBA7E4 /* SubComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,8 +146,8 @@
 				AB1502E92AC6151F00BBA7E4 /* SubComponents */,
 				AB99C7E72AC2BE5200033060 /* Alarm */,
 				ABEAB8F22AC1869100078F72 /* TimerVC.swift */,
-				ABEAB8F62AC186A600078F72 /* StopwatchVC.swift */,
 				AB99C7E12AC25B1900033060 /* CalendarVC.swift */,
+				5243C1E42AC9390900A8030D /* StopWatch */,
 				ABEAB8F42AC1869C00078F72 /* GameVC.storyboard */,
 			);
 			path = View;
@@ -237,8 +251,10 @@
 				AB1502EB2AC6152F00BBA7E4 /* MyTextfield.swift in Sources */,
 				ABEAB8F32AC1869100078F72 /* TimerVC.swift in Sources */,
 				ABEAB8F72AC186A600078F72 /* StopwatchVC.swift in Sources */,
+				5243C1E82AC9396D00A8030D /* StopwatchView.swift in Sources */,
 				AB607DD52AC7389E0022BCE1 /* SelectSoundView.swift in Sources */,
 				ABFC99E92AC5D34400095448 /* AddAlarmVC.swift in Sources */,
+				5243C1E62AC9393F00A8030D /* StopwatchExtension.swift in Sources */,
 				ABEAB8DD2AC1715400078F72 /* ViewController.swift in Sources */,
 				AB99C7E62AC2A77B00033060 /* CustomTableViewCell.swift in Sources */,
 				ABEAB8D92AC1715400078F72 /* AppDelegate.swift in Sources */,
@@ -397,8 +413,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -406,9 +422,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Daisy.WakeMeUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -425,8 +444,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -434,9 +453,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Daisy.WakeMeUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
