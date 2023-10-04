@@ -7,7 +7,8 @@
 
 import UIKit
 
-var disMisBol = false
+// 0이면 초기화, 1이면 성공 메세지, 2면 실패 메세지, 3이면 dismiss메세지
+var disMisBol = 0
 
 class GameViewController: UIViewController {
     
@@ -93,13 +94,17 @@ class GameViewController: UIViewController {
     
     // 결과창에서 돌아왔을 시 실행될 코드 - disMisBol의 값으로 바로 dismiss를 해준다
     override func viewWillAppear(_ animated: Bool) {
-        if(disMisBol){
-            disMisBol = false
+        if(disMisBol == 3){
+            disMisBol = 0
             self.presentingViewController?.dismiss(animated: true)
         }
     }
     // 뷰가 나타난 후 띄워줄 게임 스타트 알럿
     override func viewDidAppear(_ animated: Bool) {
+        if(disMisBol == 3){
+            disMisBol = 0
+            self.presentingViewController?.dismiss(animated: true)
+        }
         alertStratButton()
     }
     
@@ -291,31 +296,20 @@ class GameViewController: UIViewController {
     }
     
     func alertMessge () {
-        let alert = UIAlertController(title: "", message: "당신은 승리했습니다", preferredStyle: UIAlertController.Style.alert)
-  
-        let cancelAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel, handler: nil)
         
-        alert.addAction(cancelAction)
-
-        present(alert, animated: true)
+        let compleVC = CompleteViewController()
+        compleVC.modalTransitionStyle = .coverVertical
+        compleVC.modalPresentationStyle = .fullScreen
+        disMisBol = 1
+        self.present(compleVC, animated: true , completion: nil)
     }
     
     func alertFailMessge () {
-        let alert = UIAlertController(title: "", message: "당신은 졌습니다", preferredStyle: UIAlertController.Style.alert)
-        
-
-        let cancelAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.destructive){(_) in
-            let compleVC = CompleteViewController()
-            compleVC.modalTransitionStyle = .coverVertical
-            compleVC.modalPresentationStyle = .fullScreen
-            disMisBol = true
-            self.present(compleVC, animated: true , completion: nil)
-        }
-        
-        alert.addAction(cancelAction)
-
-        present(alert, animated: true)
-        
+        let compleVC = CompleteViewController()
+        compleVC.modalTransitionStyle = .coverVertical
+        compleVC.modalPresentationStyle = .fullScreen
+        disMisBol = 2
+        self.present(compleVC, animated: true , completion: nil)
     }
     func alertStratButton () {
         let alert = UIAlertController(title: "", message: "고양이가 당신의 아침을 깨워줄 커피를 노리고 있습니다! 버튼을 연타해 커피를 지키세요!", preferredStyle: UIAlertController.Style.alert)

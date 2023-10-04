@@ -8,30 +8,56 @@
 import UIKit
 
 class CompleteViewController : UIViewController {
-    let backButton = UIButton()
+
+    let compleTopImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 88, height: 88))
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
-       
-        self.view.addSubview(backButton)
+
+        self.view.addSubview(compleTopImage)
+
+        compleTopImage.translatesAutoresizingMaskIntoConstraints = false
+        compleTopImage.layer.cornerRadius = compleTopImage.frame.height/2
+        compleTopImage.clipsToBounds = true
+        compleTopImage.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
+        compleTopImage.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+        compleTopImage.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
+        compleTopImage.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+        compleTopImage.contentMode = .scaleAspectFill
+        compleTopImage.layer.masksToBounds = true
         
-        let safeArea = view.safeAreaLayoutGuide
-        
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        backButton.setTitle("뒤로가기", for: .normal)
-        backButton.setTitleColor(.white, for: .normal)
-        backButton.titleLabel?.font = UIFont(name: "OpenSans-Bold", size: 14)
-        backButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        backButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        backButton.backgroundColor = UIColor(red: 0.22, green: 0.596, blue: 0.953, alpha: 1)
-        backButton.layer.cornerRadius = 4
-        backButton.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 30).isActive = true
-        backButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30).isActive = true
-        
-        backButton.addTarget(self, action: #selector(backProfile), for: .touchUpInside)
         super.viewDidLoad()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        if(disMisBol == 1){
+            successMisson()
+        }else if(disMisBol == 2){
+            failMisson()
+        }
+    }
+    func failMisson () {
+        let alert = UIAlertController(title: "", message: "당신은 졌습니다. 커피나 닦으러 가십쇼", preferredStyle: UIAlertController.Style.alert)
+        compleTopImage.image = UIImage(named: "picture2")
+
+        let cancelAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.destructive){(_) in
+            self.presentingViewController?.dismiss(animated: true)
+            disMisBol = 3
+        }
         
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
+    }
+    func successMisson () {
+        let alert = UIAlertController(title: "", message: "당신은 승리했습니다", preferredStyle: UIAlertController.Style.alert)
+        compleTopImage.image = UIImage(named: "picture3")
+        let cancelAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.destructive){(_) in
+            self.presentingViewController?.dismiss(animated: true)
+            disMisBol = 3
+        }
+        
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
     }
     @objc func backProfile() {
         self.presentingViewController?.dismiss(animated: true)
