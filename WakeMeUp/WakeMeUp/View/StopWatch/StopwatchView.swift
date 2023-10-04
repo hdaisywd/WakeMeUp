@@ -2,7 +2,7 @@ import UIKit
 
 class StopwatchView: UIView {
     
-// MARK: - 화면비율에 맞춰서 시계글씨 크기조절
+    // MARK: - 화면비율에 맞춰서 시계글씨 크기조절
     private let textSizeOfwidthSize: CGFloat = {
         switch UIScreen.main.bounds.width {
         case 400...:
@@ -16,7 +16,21 @@ class StopwatchView: UIView {
         }
     }()
     
-// MARK: - stopwatchView
+    private let watchDiameter = UIScreen.main.bounds.height/3
+    private let buttonDiameter = UIScreen.main.bounds.width/5
+    
+    // MARK: - 타이틀
+    private let header = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Stopwatch"
+        label.textColor = MyColor.smallLapTime
+        label.font = .boldSystemFont(ofSize: 35)
+        
+        return label
+    }()
+    
+    // MARK: - stopwatchView
     let stopwatchView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -51,12 +65,12 @@ class StopwatchView: UIView {
     
     // MARK: - 진행시간 텍스트, 시간단위 텍스트
     
-    lazy var minLabel = makeTimeLabel("00", .center)
-    lazy var secLabel = makeTimeLabel("00", .center)
-    lazy var nanoSecLabel = makeTimeLabel("00", .left)
-    private lazy var dotminLabel = makeTimeLabel(".", .center)
+    lazy var minLabel = UILabel.makeTimeLabel("00", .center, textSizeOfwidthSize, .white)
+    lazy var secLabel = UILabel.makeTimeLabel("00", .center, textSizeOfwidthSize, .white)
+    lazy var nanoSecLabel = UILabel.makeTimeLabel("00", .center, textSizeOfwidthSize, .white)
+    private lazy var dotminLabel = UILabel.makeTimeLabel(".", .center, textSizeOfwidthSize, .white)
     private lazy var ColonLabel: UILabel = {
-        let label = makeTimeLabel(":", .center)
+        let label = UILabel.makeTimeLabel(":", .center, textSizeOfwidthSize, .white)
         let attributedText = NSMutableAttributedString(string: ":")
         let baselineOffset: CGFloat = 3
         attributedText.addAttribute(NSAttributedString.Key.baselineOffset, value: baselineOffset, range: NSRange(location: 0, length: attributedText.length))
@@ -68,15 +82,16 @@ class StopwatchView: UIView {
         let sv = UIStackView(arrangedSubviews: [minLabel, ColonLabel, secLabel, dotminLabel, nanoSecLabel])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.backgroundColor = .clear
+        sv.spacing = -5
         sv.axis = .horizontal
         sv.distribution = .fill
         sv.alignment = .fill
         return sv
     }()
     
-    private lazy var hourTitleLabel = makeTimeTitleLabel("min")
-    private lazy var minTitleLabel = makeTimeTitleLabel("sec")
-    private lazy var secondTitleLabel = makeTimeTitleLabel("10 ms")
+    private lazy var hourTitleLabel = UILabel.makeTimeTitleLabel("min", 15)
+    private lazy var minTitleLabel = UILabel.makeTimeTitleLabel("sec", 15)
+    private lazy var secondTitleLabel = UILabel.makeTimeTitleLabel("10 ms", 15)
     
     private lazy var timeTitleLabelSV: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [hourTitleLabel, minTitleLabel, secondTitleLabel])
@@ -88,7 +103,7 @@ class StopwatchView: UIView {
         return sv
     }()
     
-// MARK: - 동작버튼
+    // MARK: - 동작버튼
     let startAndPuaseButton: UIButton = {
         let bt = UIButton()
         bt.translatesAutoresizingMaskIntoConstraints = false
@@ -107,10 +122,19 @@ class StopwatchView: UIView {
         return bt
     }()
     
-// MARK: - 생성자
+    // MARK: - 랩 테이블
+    let lapTable: UITableView = {
+        let table = UITableView()
+        table.backgroundColor = .clear
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.separatorStyle = .none
+        return table
+    }()
+    
+    // MARK: - 생성자
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white        
+        backgroundColor = .white
         autoLayout()
         loadLayers()
     }
@@ -119,7 +143,7 @@ class StopwatchView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-// MARK: - 뷰 그리기 (layer 및 버튼 바운드 처리)
+    // MARK: - 뷰 그리기 (layer 및 버튼 바운드 처리)
     override func draw(_ rect: CGRect) {
         setupButton()
         super.layoutSubviews()
@@ -214,23 +238,32 @@ class StopwatchView: UIView {
         pulseLayer.add(animationGroup, forKey: "pulseAnimation")
     }
     
-
-// MARK: - 레이아웃 설정
+    
+    // MARK: - 레이아웃 설정
     private func autoLayout() {
+        addSubview(header)
         addSubview(stopwatchView)
         addSubview(startAndPuaseButton)
         addSubview(lapAndResetButton)
         addSubview(timeLabelSV)
         addSubview(timeTitleLabelSV)
+        addSubview(lapTable)
         
         NSLayoutConstraint.activate([
-            stopwatchView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            header.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            header.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            
+            stopwatchView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 30),
             stopwatchView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stopwatchView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stopwatchView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height/3),
+            stopwatchView.heightAnchor.constraint(equalToConstant: watchDiameter),
             
             timeLabelSV.centerXAnchor.constraint(equalTo: stopwatchView.centerXAnchor),
             timeLabelSV.centerYAnchor.constraint(equalTo: stopwatchView.centerYAnchor),
+            
+            minLabel.widthAnchor.constraint(equalToConstant: watchDiameter/3 - 18),
+            secLabel.widthAnchor.constraint(equalToConstant: watchDiameter/3 - 18),
+            nanoSecLabel.widthAnchor.constraint(equalToConstant: watchDiameter/3 - 18),
             
             timeTitleLabelSV.topAnchor.constraint(equalTo: timeLabelSV.bottomAnchor),
             timeTitleLabelSV.centerXAnchor.constraint(equalTo: timeLabelSV.centerXAnchor),
@@ -238,41 +271,19 @@ class StopwatchView: UIView {
             timeTitleLabelSV.trailingAnchor.constraint(equalTo: timeLabelSV.trailingAnchor),
             
             startAndPuaseButton.topAnchor.constraint(equalTo: stopwatchView.bottomAnchor, constant: -20),
-            startAndPuaseButton.trailingAnchor.constraint(equalTo: stopwatchView.trailingAnchor, constant: -15),
-            startAndPuaseButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/5),
-            startAndPuaseButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/5),
+            startAndPuaseButton.trailingAnchor.constraint(equalTo: stopwatchView.trailingAnchor, constant: -25),
+            startAndPuaseButton.widthAnchor.constraint(equalToConstant: buttonDiameter),
+            startAndPuaseButton.heightAnchor.constraint(equalToConstant: buttonDiameter),
             
             lapAndResetButton.topAnchor.constraint(equalTo: stopwatchView.bottomAnchor, constant: -20),
-            lapAndResetButton.leadingAnchor.constraint(equalTo: stopwatchView.leadingAnchor, constant: 15),
-            lapAndResetButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/5),
-            lapAndResetButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/5),
+            lapAndResetButton.leadingAnchor.constraint(equalTo: stopwatchView.leadingAnchor, constant: 25),
+            lapAndResetButton.widthAnchor.constraint(equalToConstant: buttonDiameter),
+            lapAndResetButton.heightAnchor.constraint(equalToConstant: buttonDiameter),
             
-            minLabel.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.height/3)/3 - 15),
-            secLabel.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.height/3)/3 - 15),
-            nanoSecLabel.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.height/3)/3 - 15),
+            lapTable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            lapTable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            lapTable.topAnchor.constraint(equalTo: startAndPuaseButton.bottomAnchor, constant: 10),
+            lapTable.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-
-// MARK: - 레이블 생성함수
-    private func makeTimeLabel(_ text: String, _ aligment: NSTextAlignment) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: textSizeOfwidthSize)
-        label.textAlignment = aligment
-        label.text = text
-        label.textColor = .white
-        label.backgroundColor = .clear
-        return label
-    }
-    
-    private func makeTimeTitleLabel(_ text: String) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 15)
-        label.text = text
-        label.textColor = .white
-        label.textAlignment = .center
-        return label
-    }
-    
 }
