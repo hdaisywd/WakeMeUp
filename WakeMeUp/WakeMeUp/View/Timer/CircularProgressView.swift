@@ -14,7 +14,7 @@ protocol CircularProgressViewDelegate {
 class CircularProgressView: UIView {
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .gray
+        label.textColor = .white
         label.text = "360s"
         label.font = .systemFont(ofSize: 62)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -56,27 +56,26 @@ class CircularProgressView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        self.backgroundLayer.path = self.circularPath.cgPath
+        self.backgroundLayer.fillColor = UIColor(red: 0.72, green: 0.75, blue: 1.00, alpha: 1.00).cgColor
+        self.backgroundLayer.lineCap = .round
+        self.backgroundLayer.lineWidth = 10.0
+        self.backgroundLayer.strokeEnd = 1.0 // 0 ~1사이의 값 (0이면 안채워져 있고, 1이면 다 채워져 있는 것)
+        self.backgroundLayer.strokeColor = UIColor(red: 1.00, green: 0.84, blue: 1.00, alpha: 1.00).cgColor
+        self.layer.addSublayer(self.backgroundLayer)
+
+        self.progressLayer.path = self.circularPath.cgPath
+        self.progressLayer.fillColor = UIColor(red: 0.72, green: 0.75, blue: 1.00, alpha: 1.00).cgColor
+        self.progressLayer.lineCap = .round
+        self.progressLayer.lineWidth = 10.0
+        self.progressLayer.strokeEnd = 0
+        self.progressLayer.strokeColor = UIColor(red: 1.00, green: 0.84, blue: 1.00, alpha: 1.00).cgColor
+        self.layer.addSublayer(self.progressLayer)
         self.addSubview(self.timeLabel)
         NSLayoutConstraint.activate([
             self.timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             self.timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ])
-
-        self.backgroundLayer.path = self.circularPath.cgPath
-        self.backgroundLayer.fillColor = UIColor.clear.cgColor
-        self.backgroundLayer.lineCap = .round
-        self.backgroundLayer.lineWidth = 10.0
-        self.backgroundLayer.strokeEnd = 1.0 // 0 ~1사이의 값 (0이면 안채워져 있고, 1이면 다 채워져 있는 것)
-        self.backgroundLayer.strokeColor = UIColor.yellow.cgColor
-        self.layer.addSublayer(self.backgroundLayer)
-
-        self.progressLayer.path = self.circularPath.cgPath
-        self.progressLayer.fillColor = UIColor.clear.cgColor
-        self.progressLayer.lineCap = .round
-        self.progressLayer.lineWidth = 10.0
-        self.progressLayer.strokeEnd = 0
-        self.progressLayer.strokeColor = UIColor.lightGray.cgColor
-        self.layer.addSublayer(self.progressLayer)
     }
 
     deinit {
@@ -101,10 +100,6 @@ class CircularProgressView: UIView {
             repeats: true,
             block: { [weak self] _ in
                 let remainingSeconds = duration - round(abs(startDate.timeIntervalSinceNow))
-                let remainingSec = Int(remainingSeconds)
-                print(remainingSec.hour, "시")
-                print(remainingSec.minute, "분")
-                print(remainingSec.seconds, "초")
                 guard remainingSeconds >= 1 else {
                     self?.stop()
                     self?.delegate?.timeupView()
@@ -119,7 +114,7 @@ class CircularProgressView: UIView {
 //        strokeStart
         circularProgressAnimation.duration = duration
         circularProgressAnimation.toValue = 1.0
-        circularProgressAnimation.fillMode = .forwards
+        circularProgressAnimation.fillMode = .removed
         circularProgressAnimation.isRemovedOnCompletion = false
         self.progressLayer.add(circularProgressAnimation, forKey: self.animationName)
     }
@@ -127,12 +122,12 @@ class CircularProgressView: UIView {
     func stop() {
         self.timer?.invalidate()
         self.progressLayer.removeAnimation(forKey: self.animationName)
-        self.remainingSeconds = 0
+//        self.remainingSeconds = 0
     }
 
     func pause() {
         self.timer?.invalidate()
-        self.remainingSeconds
+        print(self.remainingSeconds)
     }
 }
 
