@@ -64,7 +64,6 @@ class StopwatchVC: UIViewController {
             durationTime = Date().timeIntervalSince(startTime!)
             lapDurationTime = Date().timeIntervalSince(startLap!)
             startTime = nil
-            //            lapDate = nil
             // 정지를 누른 시점에서 현재까지 흘러간 시간 : (Date().timeIntervalSince(startTime!)
             // 다시 시작을 누르면 시작한 시간에 (Date().timeIntervalSince(startTime!)를 빼주면 된다.
             // 그 다음 시작을 누르면 다시 시작을 누른 시점에서 이전에 흘러간 시간을 빼고 계산되기 때문에 시간이 일치한다.

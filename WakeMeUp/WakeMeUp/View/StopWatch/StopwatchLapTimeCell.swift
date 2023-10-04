@@ -1,10 +1,3 @@
-//
-//  StopwatchLapTimeCell.swift
-//  WakeMeUp
-//
-//  Created by Macbook on 10/4/23.
-//
-
 import UIKit
 
 class StopwatchLapTimeCell: UITableViewCell {
@@ -20,7 +13,7 @@ class StopwatchLapTimeCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(hexCode: "595959")
-        label.font = .boldSystemFont(ofSize: 20)//.systemFont(ofSize: 20)
+        label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
     
@@ -51,8 +44,6 @@ class StopwatchLapTimeCell: UITableViewCell {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         autoLayout()
         setupFont()
-//        setupRadius()
-//        backgroundColor = .yellow
     }
     
     required init?(coder: NSCoder) {
@@ -87,28 +78,19 @@ class StopwatchLapTimeCell: UITableViewCell {
         timeLabel.forEach { $0.font = .boldSystemFont(ofSize: 20)}
     }
     
-//    func setupRadius() {
-//        contentView.clipsToBounds = true
-//        contentView.layer.cornerRadius = 10
-//    }
-    
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        
-//        let horizontalSpacing: CGFloat = 20 // 좌우 간격
-//        let verticalSpacing: CGFloat = 5    // 상하 간격
-//        
-//        // 셀의 컨텐츠 뷰 프레임을 가져옵니다.
-//        var contentViewFrame = contentView.frame
-//        
-//        // 각종 간격을 적용합니다.
-//        contentViewFrame.origin.x += horizontalSpacing
-//        contentViewFrame.size.width -= horizontalSpacing * 2 // 양쪽으로 동일한 간격을 적용
-//        contentViewFrame.origin.y += verticalSpacing
-//        contentViewFrame.size.height -= verticalSpacing * 2 // 상하로 동일한 간격을 적용
-//        
-//        // 컨텐츠 뷰의 프레임을 조정합니다.
-//        contentView.frame = contentViewFrame
-//    }
-    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let horizontalSpacing: CGFloat = 25
+        let verticalSpacing: CGFloat = 0
+        
+        var contentViewFrame = contentView.frame
+        
+        contentViewFrame.origin.x += horizontalSpacing
+        contentViewFrame.size.width -= horizontalSpacing * 2
+        contentViewFrame.origin.y += verticalSpacing
+        contentViewFrame.size.height -= verticalSpacing * 2
+        
+        contentView.frame = contentViewFrame
+    }
 }

@@ -128,6 +128,8 @@ class StopwatchView: UIView {
         table.backgroundColor = .clear
         table.translatesAutoresizingMaskIntoConstraints = false
         table.separatorStyle = .none
+        table.indicatorStyle = .black
+        table.bounces = false
         return table
     }()
     
@@ -280,8 +282,8 @@ class StopwatchView: UIView {
             lapAndResetButton.widthAnchor.constraint(equalToConstant: buttonDiameter),
             lapAndResetButton.heightAnchor.constraint(equalToConstant: buttonDiameter),
             
-            lapTable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            lapTable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            lapTable.leadingAnchor.constraint(equalTo: leadingAnchor),
+            lapTable.trailingAnchor.constraint(equalTo: trailingAnchor),
             lapTable.topAnchor.constraint(equalTo: startAndPuaseButton.bottomAnchor, constant: 10),
             lapTable.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
