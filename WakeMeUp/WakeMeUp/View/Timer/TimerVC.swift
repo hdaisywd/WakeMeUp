@@ -6,7 +6,7 @@ import UserNotifications
 class TimerVC: UIViewController {
     let circularProgressView = CircularProgressView()
     let userNotificationCenter = UNUserNotificationCenter.current()
-
+    var notificationId = ""
     let timeLabel: UILabel = {
         let label = UILabel()
         return label
@@ -37,7 +37,7 @@ class TimerVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     private let stopButton: UIButton = {
         let button = UIButton()
         button.setTitle("정지", for: .normal)
@@ -64,19 +64,19 @@ class TimerVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     private let ringtoneLabel: UILabel = {
         let label = UILabel()
         label.text = "명상음"
         return label
     }()
-
+    
     private let ringtoneTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "\t 벨소리 종료 시 >"
         return label
     }()
-
+    
     private let ringtoneSV: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -97,15 +97,15 @@ class TimerVC: UIViewController {
         self.circularProgressView.isHidden = true
         self.ringtoneSV.addArrangedSubview(self.ringtoneTitleLabel)
         self.ringtoneSV.addArrangedSubview(self.ringtoneLabel)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.ringtoneLabelTapped))
-        self.ringtoneSV.addGestureRecognizer(tap)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ringtoneLabelTapped))
+        ringtoneSV.addGestureRecognizer(tap)
         self.view.addSubview(self.timePicker)
         self.view.addSubview(self.startButton)
         self.view.addSubview(self.stopButton)
         self.view.addSubview(self.cancelButton)
         self.view.addSubview(self.ringtoneSV)
         self.timePicker.setPickerLabelsWith(labels: ["시간", "분", "초"])
-        self.circularProgressView.delegate = self
+        circularProgressView.delegate = self
 
         NSLayoutConstraint.activate([
             self.circularProgressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: UIScreen.main.bounds.height / 6),
@@ -141,34 +141,35 @@ class TimerVC: UIViewController {
             self.ringtoneSV.topAnchor.constraint(equalTo: self.startButton.bottomAnchor, constant: 50),
             self.ringtoneSV.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             self.ringtoneSV.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            self.ringtoneSV.heightAnchor.constraint(equalToConstant: 40),
+            self.ringtoneSV.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
-
-    var paused: Bool = false {
-        didSet {
-            if self.paused {
-                self.startButton.backgroundColor = UIColor(named: "startColor")
-                self.startButton.setTitleColor(UIColor(named: "startTextColor"), for: .normal)
-                self.startButton.setTitle("재개", for: .normal)
-            } else {
-                self.startButton.backgroundColor = UIColor(named: "pauseColor")
-                self.startButton.setTitleColor(UIColor(named: "pauseTextColor"), for: .normal)
-                self.startButton.setTitle("일시 정지", for: .normal)
+    
+    var paused: Bool = false{
+        didSet{
+            if(paused){
+                startButton.backgroundColor = UIColor(named:"startColor")
+                startButton.setTitleColor(UIColor(named:"startTextColor"), for: .normal)
+                startButton.setTitle("재개", for: .normal)
+            }else{
+                startButton.backgroundColor = UIColor(named:"pauseColor")
+                startButton.setTitleColor(UIColor(named:"pauseTextColor"), for: .normal)
+                startButton.setTitle("일시 정지", for: .normal)
             }
         }
     }
 
+
+    
     func requestNotificationAuthorization() {
         let authOptions = UNAuthorizationOptions(arrayLiteral: .alert, .badge, .sound)
 
-        self.userNotificationCenter.requestAuthorization(options: authOptions) { _, error in
+        userNotificationCenter.requestAuthorization(options: authOptions) { success, error in
             if let error = error {
                 print("Error: \(error)")
             }
         }
     }
-
     func sendNotification(seconds: Double) {
         let notificationContent = UNMutableNotificationContent()
 
@@ -176,20 +177,26 @@ class TimerVC: UIViewController {
         notificationContent.body = "타이머"
         notificationContent.sound = .default
         notificationContent.badge = 1
+        notificationId = "\(seconds)"
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
-        let request = UNNotificationRequest(identifier: "testNotification",
+        let request = UNNotificationRequest(identifier: "\(seconds)",
                                             content: notificationContent,
                                             trigger: trigger)
 
-        self.userNotificationCenter.add(request) { error in
+        userNotificationCenter.add(request) { error in
             if let error = error {
                 print("Notification Error: ", error)
             }
         }
     }
+    func removeNotification(identifier: String) {
+        let notification = UNUserNotificationCenter.current()
+        notification.removePendingNotificationRequests(withIdentifiers: [identifier])
+        print(identifier)
+    }
 
     @objc func start() {
-        if self.getAlertTimeWithTimeInterval() != 0.0 {
+        if getAlertTimeWithTimeInterval() != 0.0 {
             self.circularProgressView.isHidden = false
             self.timePicker.isHidden = true
             self.startButton.isHidden = true
@@ -202,13 +209,14 @@ class TimerVC: UIViewController {
                 self?.timePicker.alpha = 0
                 self?.circularProgressView.alpha = 1
             }
-            self.requestNotificationAuthorization()
-            self.sendNotification(seconds: self.getAlertTimeWithTimeInterval())
+            requestNotificationAuthorization()
+            removeNotification(identifier: notificationId)
+            sendNotification(seconds: self.getAlertTimeWithTimeInterval())
         }
     }
 
     @objc func stop() {
-        if self.getAlertTimeWithTimeInterval() != 0.0 {
+        if getAlertTimeWithTimeInterval() != 0.0 {
             self.circularProgressView.stop()
             self.circularProgressView.isHidden = true
             self.timePicker.isHidden = false
@@ -223,6 +231,7 @@ class TimerVC: UIViewController {
             self.timePicker.selectRow(0, inComponent: 0, animated: false)
             self.timePicker.selectRow(0, inComponent: 1, animated: false)
             self.timePicker.selectRow(0, inComponent: 2, animated: false)
+            removeNotification(identifier: notificationId)
         }
     }
 
@@ -251,13 +260,14 @@ class TimerVC: UIViewController {
 
         return [hour, minuteAndSecond, minuteAndSecond]
     }
-
+    
     @objc func ringtoneLabelTapped(_ sender: UITapGestureRecognizer) {
-        let vc = TimerRingtoneTalbeViewController()
+        let vc = TimerRingtoneTableViewController()
         vc.modalPresentationStyle = .popover
         present(vc, animated: true)
     }
 }
+
 
 extension TimerVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
