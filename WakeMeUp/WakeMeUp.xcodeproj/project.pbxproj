@@ -12,6 +12,8 @@
 		AB1502EB2AC6152F00BBA7E4 /* MyTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1502EA2AC6152F00BBA7E4 /* MyTextfield.swift */; };
 		AB607DD12AC715C60022BCE1 /* SelectDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB607DD02AC715C60022BCE1 /* SelectDaysView.swift */; };
 		AB607DD52AC7389E0022BCE1 /* SelectSoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB607DD42AC7389E0022BCE1 /* SelectSoundView.swift */; };
+		AB6D35E12ACD28E3005AE5B4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6D35E02ACD28E3005AE5B4 /* GameViewController.swift */; };
+		AB6D35E32ACD293E005AE5B4 /* CompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6D35E22ACD293E005AE5B4 /* CompleteViewController.swift */; };
 		AB99C7E22AC25B1900033060 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7E12AC25B1900033060 /* CalendarVC.swift */; };
 		AB99C7E42AC25C1500033060 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7E32AC25C1500033060 /* Extension.swift */; };
 		AB99C7E62AC2A77B00033060 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7E52AC2A77B00033060 /* CustomTableViewCell.swift */; };
@@ -36,6 +38,8 @@
 		AB1502EA2AC6152F00BBA7E4 /* MyTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextfield.swift; sourceTree = "<group>"; };
 		AB607DD02AC715C60022BCE1 /* SelectDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDaysView.swift; sourceTree = "<group>"; };
 		AB607DD42AC7389E0022BCE1 /* SelectSoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSoundView.swift; sourceTree = "<group>"; };
+		AB6D35E02ACD28E3005AE5B4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		AB6D35E22ACD293E005AE5B4 /* CompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewController.swift; sourceTree = "<group>"; };
 		AB99C7E12AC25B1900033060 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		AB99C7E32AC25C1500033060 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		AB99C7E52AC2A77B00033060 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
@@ -94,6 +98,16 @@
 			path = CustomComponents;
 			sourceTree = "<group>";
 		};
+		AB6D35E42ACD29A2005AE5B4 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				ABEAB8F42AC1869C00078F72 /* GameVC.storyboard */,
+				AB6D35E02ACD28E3005AE5B4 /* GameViewController.swift */,
+				AB6D35E22ACD293E005AE5B4 /* CompleteViewController.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
 		AB99C7E72AC2BE5200033060 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,7 +162,7 @@
 				ABEAB8F22AC1869100078F72 /* TimerVC.swift */,
 				AB99C7E12AC25B1900033060 /* CalendarVC.swift */,
 				5243C1E42AC9390900A8030D /* StopWatch */,
-				ABEAB8F42AC1869C00078F72 /* GameVC.storyboard */,
+				AB6D35E42ACD29A2005AE5B4 /* Game */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -250,7 +264,9 @@
 				ABEAB8E32AC1715500078F72 /* WakeMeUp.xcdatamodeld in Sources */,
 				AB1502EB2AC6152F00BBA7E4 /* MyTextfield.swift in Sources */,
 				ABEAB8F32AC1869100078F72 /* TimerVC.swift in Sources */,
+				AB6D35E32ACD293E005AE5B4 /* CompleteViewController.swift in Sources */,
 				ABEAB8F72AC186A600078F72 /* StopwatchVC.swift in Sources */,
+				AB6D35E12ACD28E3005AE5B4 /* GameViewController.swift in Sources */,
 				5243C1E82AC9396D00A8030D /* StopwatchView.swift in Sources */,
 				AB607DD52AC7389E0022BCE1 /* SelectSoundView.swift in Sources */,
 				ABFC99E92AC5D34400095448 /* AddAlarmVC.swift in Sources */,
