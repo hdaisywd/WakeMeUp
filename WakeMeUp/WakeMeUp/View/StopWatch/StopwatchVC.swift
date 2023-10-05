@@ -5,20 +5,19 @@ class StopwatchVC: UIViewController {
     
     // MARK: - 필요속성
     let stopwatchView = StopwatchView()
-    
-    var isRunning = false
-    
+    let stopwatchManager = stopwatchData.shared
     var timer = Timer()
-    var startTime:Date?
-    var durationTime:TimeInterval?
-    
     var lapTimer = Timer()
-    var startLap:Date?
-    var lapDurationTime:TimeInterval?
-    var lapHeader: (String, String, String) = ("00","00","00")
     var lapTimes: [(String, String, String)] = []
-    var lapInts: [Int] = []
-    var lapNumber: Int = 1
+    var timeHeader: (String, String, String)? {
+        didSet {
+            guard let timeHeader = timeHeader else { return }
+            stopwatchView.minLabel.text = timeHeader.0
+            stopwatchView.secLabel.text = timeHeader.1
+            stopwatchView.nanoSecLabel.text = timeHeader.2
+        }
+    }
+    var lapHeader: (String, String, String) = ("00","00","00")
     
     // MARK: - 생성자
     override func viewDidLoad() {
@@ -26,6 +25,9 @@ class StopwatchVC: UIViewController {
         view = stopwatchView
         setupAction()
         setupLapTable()
+        stopwatchManager.readData()
+        stopwatchManager.readLaps()
+        firstSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,103 +51,146 @@ class StopwatchVC: UIViewController {
     
     // MARK: - 시작, 정지 설정
     @objc func startAndPuaseButtonTapped() {
-        if isRunning {
-            stopwatchView.stopwatchView.layer.sublayers?.forEach { [weak self] layer in
-                layer.removeAllAnimations()
-                guard let self = self else { return }
-                if layer == self.stopwatchView.indicatorLayer {
-                    self.stopwatchView.indicatorLayer.removeFromSuperlayer()
-                }
-            }
-            stopwatchView.startAndPuaseButton.setImage(MyButton.playIcon, for: .normal)
-            stopwatchView.lapAndResetButton.setImage(MyButton.resetIcon, for: .normal)
-            timer.invalidate()
-            lapTimer.invalidate()
-            durationTime = Date().timeIntervalSince(startTime!)
-            lapDurationTime = Date().timeIntervalSince(startLap!)
-            startTime = nil
-            // 정지를 누른 시점에서 현재까지 흘러간 시간 : (Date().timeIntervalSince(startTime!)
-            // 다시 시작을 누르면 시작한 시간에 (Date().timeIntervalSince(startTime!)를 빼주면 된다.
-            // 그 다음 시작을 누르면 다시 시작을 누른 시점에서 이전에 흘러간 시간을 빼고 계산되기 때문에 시간이 일치한다.
-            isRunning = false
+        stopwatchManager.firstRunning = true
+        if stopwatchManager.isRunning {
+            animationStop()
+            setupNonWorkIcon()
+            stopwatchStop()
+            stopwatchManager.isRunning = false
         } else {
-            startLap = Date()
-            startTime = Date()
-            if let myDurationTime = durationTime {
-                startTime = startTime?.addingTimeInterval(-(myDurationTime-0.025))
-                // 0.025를 빼주는 이유? 다시 셋팅이되기까지 약간의 딜레이가 발생
-                // 0.025를 빼주지 않으면 멈춘 시간에서 다시 시작할 때 0.02초정도 차이발생
-                // 그래서 다시 시작하는 시간에서 0.025정도의 준비시간을 주는 것
-            }
-            
-            if let myLapDurationTime = lapDurationTime {
-                startLap = startLap?.addingTimeInterval(-(myLapDurationTime-0.025))
-            }
-            stopwatchView.animateForegroundLayer()
-            stopwatchView.animatePulseLayer()
-            stopwatchView.startAndPuaseButton.setImage(MyButton.stopIcon, for: .normal)
-            stopwatchView.lapAndResetButton.setImage(MyButton.lapIcon, for: .normal)
-            timer = Timer.scheduledTimer(timeInterval: 1.0 / 60.0 , target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
-            lapTimer = Timer.scheduledTimer(timeInterval: 1.0 / 60.0 , target: self, selector: #selector(lapTimerCounter), userInfo: nil, repeats: true)
-            isRunning = true
+            animationStart()
+            setupTime()
+            setupLastTime()
+            setupWorkIcon()
+            stopwatchStart()
+            stopwatchManager.isRunning = true
         }
+        stopwatchManager.saveData()
+    }
+    
+    func setupTime() {
+        stopwatchManager.startTime = Date()
+        stopwatchManager.startLap = Date()
+    }
+    
+    func setupLastTime() {
+        if let durationTime = stopwatchManager.durationTime {
+            stopwatchManager.startTime = stopwatchManager.startTime?.addingTimeInterval(-(durationTime-0.025))
+        }
+        if let durationLapTime = stopwatchManager.lapDurationTime {
+            stopwatchManager.startLap = stopwatchManager.startLap?.addingTimeInterval(-(durationLapTime-0.025))
+        }
+    }
+    
+    func animationStart() {
+        stopwatchView.animateForegroundLayer()
+        stopwatchView.animatePulseLayer()
+    }
+    
+    func animationStop() {
+        stopwatchView.stopwatchView.layer.sublayers?.forEach { [weak self] layer in
+            layer.removeAllAnimations()
+            guard let self = self else { return }
+            if layer == self.stopwatchView.indicatorLayer {
+                self.stopwatchView.indicatorLayer.removeFromSuperlayer()
+            }
+        }
+    }
+    
+    func stopwatchStart() {
+        timer = Timer.scheduledTimer(timeInterval: 1.0 / 60.0 , target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
+        lapTimer = Timer.scheduledTimer(timeInterval: 1.0 / 60.0 , target: self, selector: #selector(lapTimerCounter), userInfo: nil, repeats: true)
+    }
+    
+    func stopwatchStop() {
+        timer.invalidate()
+        lapTimer.invalidate()
+        stopwatchManager.durationTime = Date().timeIntervalSince(stopwatchManager.startTime!)
+        stopwatchManager.lapDurationTime = Date().timeIntervalSince(stopwatchManager.startLap!)
+    }
+    
+    func setupWorkIcon() {
+        stopwatchView.startAndPuaseButton.setImage(MyButton.stopIcon, for: .normal)
+        stopwatchView.startAndPuaseButton.setImage(MyButton.stopIcon, for: .highlighted)
+        stopwatchView.lapAndResetButton.setImage(MyButton.lapIcon, for: .normal)
+        stopwatchView.lapAndResetButton.setImage(MyButton.lapIcon, for: .highlighted)
+        stopwatchView.lapAndResetButton.imageEdgeInsets.right = 0
+    }
+    
+    func setupNonWorkIcon() {
+        stopwatchView.startAndPuaseButton.setImage(MyButton.playIcon, for: .normal)
+        stopwatchView.startAndPuaseButton.setImage(MyButton.playIcon, for: .highlighted)
+        stopwatchView.lapAndResetButton.setImage(MyButton.resetIcon, for: .normal)
+        stopwatchView.lapAndResetButton.setImage(MyButton.resetIcon, for: .highlighted)
+        stopwatchView.lapAndResetButton.imageEdgeInsets.right = 3
+    }
+    // MARK: - 첫 세팅
+    func firstSetup() {
+        guard stopwatchManager.firstRunning == true else { return }
+        if stopwatchManager.isRunning == true {
+            stopwatchStart()
+            setupWorkIcon()
+        } else {
+            setupNonWorkIcon()
+            timeHeader = calculationTime(stopwatchManager.timeInt)
+            lapHeader = calculationTime(stopwatchManager.lapInt)
+        }
+        if stopwatchManager.lapInts.isEmpty != true {
+            lapTimes = stopwatchManager.lapInts.map({ timeInt in
+                calculationTime(timeInt)
+            })
+        }
+    }
+    
+    func calculationTimeInt(_ time: Date) -> (Int) {
+        let currentTime = Date().timeIntervalSince(time)
+        let timeDouble = Double(currentTime) * 100
+        let timeTrunc = trunc(timeDouble)
+        let timeInt = Int(timeTrunc)
+        return timeInt
+    }
+    
+    func calculationTime(_ timeInt: Int) -> (String, String, String) {
+        let time = secondsToHoursMinutesSeconds(seconds: timeInt)
+        let makeTime = makeTimeString(minutes: time.0, seconds: time.1, tenMiliSecond: time.2)
+        return makeTime
     }
     
     // MARK: - 타이머 로직
     @objc func timerCounter() {
-        guard let myStartTime = startTime else { return }
-        let currentTime = Date().timeIntervalSince(myStartTime)
-        let timeDouble = Double(currentTime) * 100
-        let timeTrunc = trunc(timeDouble)
-        let timeInt = Int(timeTrunc)
-        let time = secondsToHoursMinutesSeconds(seconds: timeInt)
-        let makeTime = makeTimeString(minutes: time.0, seconds: time.1, tenMiliSecond: time.2)
-        
-        stopwatchView.minLabel.text = makeTime.0
-        stopwatchView.secLabel.text = makeTime.1
-        stopwatchView.nanoSecLabel.text = makeTime.2
-        stopwatchView.lapTable.reloadData()
+        guard let myStartTime = stopwatchManager.startTime else { return }
+        stopwatchManager.timeInt = calculationTimeInt(myStartTime)
+        timeHeader = calculationTime(stopwatchManager.timeInt)
     }
     
     // MARK: - 랩 타이머 로직
     @objc func lapTimerCounter() {
-        guard let myStartLap = startLap else { return }
-        let currentTime = Date().timeIntervalSince(myStartLap)
-        let timeDouble = Double(currentTime) * 100
-        let timeTrunc = trunc(timeDouble)
-        let timeInt = Int(timeTrunc)
-        let time = secondsToHoursMinutesSeconds(seconds: timeInt)
-        let makeTime = makeTimeString(minutes: time.0, seconds: time.1, tenMiliSecond: time.2)
-        lapHeader = makeTime
+        guard let myStartLap = stopwatchManager.startLap else { return }
+        stopwatchManager.lapInt = calculationTimeInt(myStartLap)
+        lapHeader = calculationTime(stopwatchManager.lapInt)
+        stopwatchView.lapTable.reloadData()
     }
     
     // MARK: - 랩, 재설정 설정
     @objc func lapAndResetButtonTapped() {
-        if isRunning {
-            guard let myStartTime = startLap else { return }
-            let currentTime = Date().timeIntervalSince(myStartTime)
-            let timeDouble = Double(currentTime) * 100
-            let timeTrunc = trunc(timeDouble)
-            let timeInt = Int(timeTrunc)
-            let time = secondsToHoursMinutesSeconds(seconds: timeInt)
-            let makeTime = makeTimeString(minutes: time.0, seconds: time.1, tenMiliSecond: time.2)
-            lapInts.insert(timeInt, at: 0)
+        if stopwatchManager.isRunning {
+            guard let myStartLap = stopwatchManager.startLap else { return }
+            let timeInt = calculationTimeInt(myStartLap)
+            let makeTime = calculationTime(timeInt)
             lapTimes.insert(makeTime, at: 0)
-            lapNumber += 1
-            startLap = Date()
+            stopwatchManager.lapInts.insert(timeInt, at: 0)
+            stopwatchManager.lapCounter += 1
+            stopwatchManager.startLap = Date()
+            // 스톱워치 동작함수에 lapTable.reloadData가 들어있음
         } else {
-            lapDurationTime = nil
-            durationTime = nil
+            stopwatchManager.resetData()
             lapTimes = []
-            lapInts = []
-            lapNumber = 1
-            stopwatchView.lapTable.reloadData()
-            let makeTime = makeTimeString(minutes: 0, seconds: 0, tenMiliSecond: 0)
-            stopwatchView.minLabel.text = makeTime.0
-            stopwatchView.secLabel.text = makeTime.1
-            stopwatchView.nanoSecLabel.text = makeTime.2
+            timeHeader = ("00","00","00")
             lapHeader = ("00","00","00")
+            stopwatchView.lapTable.reloadData()
         }
+        stopwatchManager.saveData()
+        stopwatchManager.saveLaps()
     }
     
     // MARK: - 진행시간 변환
@@ -170,9 +215,9 @@ extension StopwatchVC: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StopwatchLapTimeCell", for: indexPath) as! StopwatchLapTimeCell
         
         if lapTimes.count == 0 {
-            cell.lapNumber = 1
+            cell.lapCounter = 1
         } else {
-            cell.lapNumber = lapNumber-indexPath.row
+            cell.lapCounter = stopwatchManager.lapCounter-indexPath.row
         }
         
         if indexPath.row == 0 {
@@ -195,11 +240,11 @@ extension StopwatchVC: UITableViewDelegate {
         lapCell.backgroundColor = .clear
         timeLable.forEach { $0.textColor = UIColor(hexCode: "595959") }
         
-        if lapInts.count > 1 {
-            guard let largeInterval = lapInts.max(),
-                  let largeIndex = lapInts.firstIndex(of: largeInterval),
-                  let shortInterval = lapInts.min(),
-                  let shortIndex = lapInts.firstIndex(of: shortInterval)
+        if stopwatchManager.lapInts.count > 1 {
+            guard let largeInterval = stopwatchManager.lapInts.max(),
+                  let largeIndex = stopwatchManager.lapInts.firstIndex(of: largeInterval),
+                  let shortInterval = stopwatchManager.lapInts.min(),
+                  let shortIndex = stopwatchManager.lapInts.firstIndex(of: shortInterval)
             else { return }
             
             if indexPath.row == largeIndex+1 {

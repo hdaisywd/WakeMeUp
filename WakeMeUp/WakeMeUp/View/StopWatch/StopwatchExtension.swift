@@ -13,8 +13,8 @@ enum MyButton {
     static let imageConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .bold, scale: .large)
     static let playIcon = UIImage(systemName: "play.fill", withConfiguration: imageConfig)
     static let stopIcon = UIImage(systemName: "pause.fill", withConfiguration: imageConfig)
-    static let lapIcon = UIImage(systemName: "checkmark.circle.fill", withConfiguration: imageConfig)
-    static let resetIcon = UIImage(systemName: "arrow.counterclockwise.circle.fill", withConfiguration: imageConfig)
+    static let lapIcon = UIImage(systemName: "checkmark", withConfiguration: imageConfig)
+    static let resetIcon = UIImage(systemName: "clock.arrow.circlepath", withConfiguration: imageConfig)
 }
 
 extension UILabel {
@@ -40,7 +40,17 @@ extension UILabel {
     }
 }
 
-
+extension UIImage {
+    static func image(withColor color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
 
 
 

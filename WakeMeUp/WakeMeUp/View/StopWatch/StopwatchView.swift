@@ -16,8 +16,19 @@ class StopwatchView: UIView {
         }
     }()
     
+    private let spaceOfwidthSize: CGFloat = {
+        switch UIScreen.main.bounds.height {
+        case 800...:
+            return -6
+        case 600...:
+            return 0
+        default:
+            return 0
+        }
+    }()
+    
     private let watchDiameter = UIScreen.main.bounds.height/3
-    private let buttonDiameter = UIScreen.main.bounds.width/5
+    private let buttonDiameter = UIScreen.main.bounds.width/6
     
     // MARK: - 타이틀
     private let header = {
@@ -82,7 +93,7 @@ class StopwatchView: UIView {
         let sv = UIStackView(arrangedSubviews: [minLabel, ColonLabel, secLabel, dotminLabel, nanoSecLabel])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.backgroundColor = .clear
-        sv.spacing = -5
+        sv.spacing = spaceOfwidthSize
         sv.axis = .horizontal
         sv.distribution = .fill
         sv.alignment = .fill
@@ -108,7 +119,7 @@ class StopwatchView: UIView {
         let bt = UIButton()
         bt.translatesAutoresizingMaskIntoConstraints = false
         bt.setImage(MyButton.playIcon, for: .normal)
-        bt.setImage(MyButton.playIcon, for: .highlighted)
+        bt.setBackgroundImage(UIImage.image(withColor: MyColor.stopWatchColor), for: .highlighted)
         bt.tintColor = .white
         return bt
     }()
@@ -116,9 +127,11 @@ class StopwatchView: UIView {
     let lapAndResetButton: UIButton = {
         let bt = UIButton()
         bt.translatesAutoresizingMaskIntoConstraints = false
-        bt.setImage(MyButton.lapIcon, for: .normal)
-        bt.setImage(MyButton.lapIcon, for: .highlighted)
+        bt.setImage(MyButton.resetIcon, for: .normal)
+        bt.setBackgroundImage(UIImage.image(withColor: MyColor.stopWatchColor), for: .highlighted)
+        bt.imageEdgeInsets.right = 3
         bt.tintColor = .white
+        
         return bt
     }()
     
@@ -137,6 +150,7 @@ class StopwatchView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
+        print(UIScreen.main.bounds.height)
         autoLayout()
         loadLayers()
     }
@@ -253,7 +267,7 @@ class StopwatchView: UIView {
         
         NSLayoutConstraint.activate([
             header.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            header.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            header.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 25),
             
             stopwatchView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 30),
             stopwatchView.leadingAnchor.constraint(equalTo: leadingAnchor),

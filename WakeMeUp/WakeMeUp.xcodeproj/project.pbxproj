@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5243C1E62AC9393F00A8030D /* StopwatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C1E52AC9393F00A8030D /* StopwatchExtension.swift */; };
 		5243C1E82AC9396D00A8030D /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C1E72AC9396D00A8030D /* StopwatchView.swift */; };
+		525BBEF42ACDB8B600397723 /* StopwatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525BBEF32ACDB8B600397723 /* StopwatchManager.swift */; };
 		52C4F4A52ACD032500F19A5B /* StopwatchLapTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C4F4A42ACD032500F19A5B /* StopwatchLapTimeCell.swift */; };
 		554BA1382ACCF61B00BFBDC5 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BA1372ACCF61B00BFBDC5 /* CircularProgressView.swift */; };
 		554BA13A2ACCF64800BFBDC5 /* TimerRingtoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BA1392ACCF64800BFBDC5 /* TimerRingtoneTableViewController.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		5243C1E52AC9393F00A8030D /* StopwatchExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchExtension.swift; sourceTree = "<group>"; };
 		5243C1E72AC9396D00A8030D /* StopwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
+		525BBEF32ACDB8B600397723 /* StopwatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchManager.swift; sourceTree = "<group>"; };
 		52C4F4A42ACD032500F19A5B /* StopwatchLapTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchLapTimeCell.swift; sourceTree = "<group>"; };
 		554BA1372ACCF61B00BFBDC5 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		554BA1392ACCF64800BFBDC5 /* TimerRingtoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerRingtoneTableViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				AB607DE42ACD31D80022BCE1 /* AlarmManager.swift */,
+				525BBEF32ACDB8B600397723 /* StopwatchManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				5243C1E62AC9393F00A8030D /* StopwatchExtension.swift in Sources */,
 				ABEAB8DD2AC1715400078F72 /* ViewController.swift in Sources */,
 				AB99C7E62AC2A77B00033060 /* CustomTableViewCell.swift in Sources */,
+				525BBEF42ACDB8B600397723 /* StopwatchManager.swift in Sources */,
 				ABEAB8D92AC1715400078F72 /* AppDelegate.swift in Sources */,
 				AB99C7E22AC25B1900033060 /* CalendarVC.swift in Sources */,
 				AB607DD12AC715C60022BCE1 /* SelectDaysView.swift in Sources */,

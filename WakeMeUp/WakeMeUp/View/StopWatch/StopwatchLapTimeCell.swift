@@ -2,10 +2,10 @@ import UIKit
 
 class StopwatchLapTimeCell: UITableViewCell {
 
-    var lapNumber: Int? {
+    var lapCounter: Int? {
         didSet {
-            guard let lapNumber = lapNumber else { return }
-            lapLabel.text = "Lap \(lapNumber)"
+            guard let lapCounter = lapCounter else { return }
+            lapLabel.text = "Lap \(lapCounter)"
         }
     }
     
