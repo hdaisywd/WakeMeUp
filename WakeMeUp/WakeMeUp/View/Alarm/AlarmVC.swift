@@ -91,7 +91,6 @@ class AlarmVC: UIViewController {
 
 
     func loadData() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         if let alarms = AlarmManager.shared.getAllAlarms() {
             for alarm in alarms {
@@ -186,6 +185,8 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90.0
