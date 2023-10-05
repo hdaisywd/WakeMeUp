@@ -48,11 +48,19 @@ final class SelectSoundPickerView: UITextField, UIPickerViewDelegate, UIPickerVi
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         
-        let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.action))
-        let doneBtn = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))
+        let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelBtnAction))
+        let doneBtn = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneBtnAction))
         toolBar.setItems([cancelBtn, flexibleSpace, doneBtn], animated: true)
         toolBar.isUserInteractionEnabled = true
         self.inputAccessoryView = toolBar
+    }
+    
+    @objc func cancelBtnAction() {
+        self.resignFirstResponder()
+    }
+    
+    @objc func doneBtnAction() {
+        self.resignFirstResponder()
     }
     
     

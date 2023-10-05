@@ -3,7 +3,26 @@ import Foundation
 import CoreData
 import UIKit
 
+struct Alarms {
+    var title: String
+    var days: String
+    var time: String
+    var isAble: Bool
+    var repeating: Bool
+}
+
+
 class AlarmManager {
+
+    static let shared = AlarmManager()
+    
+    private let context: NSManagedObjectContext
+
+    private init() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        context = appDelegate.persistentContainer.viewContext
+    }
+
 
     func createData(title: String, days: String, time: String, isAble: Bool, repeating: Bool) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
