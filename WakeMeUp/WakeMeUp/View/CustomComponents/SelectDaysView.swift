@@ -59,7 +59,7 @@ final class SelectDaysView: UITextField, UIPickerViewDelegate, UIPickerViewDataS
     
     @objc func doneBtnAction() {
         self.resignFirstResponder()
-        self.delegate?.textFieldDidEndEditing(self)
+        // self.delegate?.textFieldDidEndEditing(self)
     }
     
     func setSelectedDay(_ day: String) {
@@ -87,6 +87,7 @@ final class SelectDaysView: UITextField, UIPickerViewDelegate, UIPickerViewDataS
 
 extension SelectDaysView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
+
         if let selectedDay = selectedDay {
             textField.text = selectedDay
         }

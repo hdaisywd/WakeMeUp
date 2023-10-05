@@ -2,11 +2,13 @@
 import Foundation
 import UIKit
 import CoreData
-
+import UserNotifications
 
 class AlarmVC: UIViewController {
     
     static let alarmTableViewIdentifier = "AlarmTableViewCell"
+    
+    let userNotificationCenter = UNUserNotificationCenter.current()
     
     let mustData: [Alarms] = [
         Alarms(title: "스크럼하기", days: "MON TUE WED THU FRI", time: "09:30 AM", isAble: true, repeating: true)
@@ -60,11 +62,16 @@ class AlarmVC: UIViewController {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userNotificationCenter.delegate = self
 
         deleteAllAlarms()
         loadData()
         print("더미 데이터: ", dummyData)
         configureLayout()
+        
+        requestNotificationAuthorization()
+        sendNotification(seconds: 10)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +79,34 @@ class AlarmVC: UIViewController {
 
         navigationController?.setNavigationBarHidden(true, animated: animated)
         createDummyData()
+    }
+    
+    func requestNotificationAuthorization() {
+        let authOptions = UNAuthorizationOptions(arrayLiteral: .alert, .badge, .sound)
+
+        userNotificationCenter.requestAuthorization(options: authOptions) { success, error in
+            if let error = error {
+                print("Error: \(error)")
+            }
+        }
+    }
+
+    func sendNotification(seconds: Double) {
+        let notificationContent = UNMutableNotificationContent()
+
+        notificationContent.title = "알림 테스트"
+        notificationContent.body = "이것은 알림을 테스트 하는 것이다"
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
+        let request = UNNotificationRequest(identifier: "testNotification",
+                                            content: notificationContent,
+                                            trigger: trigger)
+
+        userNotificationCenter.add(request) { error in
+            if let error = error {
+                print("Notification Error: ", error)
+            }
+        }
     }
     
     // MARK: Dummy Data
@@ -228,5 +263,19 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90.0
+    }
+}
+
+extension AlarmVC: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
     }
 }
