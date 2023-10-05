@@ -1,4 +1,3 @@
-
 import Foundation
 import UIKit
 
@@ -20,18 +19,17 @@ final class SelectDaysView: UITextField, UIPickerViewDelegate, UIPickerViewDataS
         pickerview.delegate = self
         pickerview.dataSource = self
         self.inputView = pickerview
-        self.tintColor = .clear
+        self.layer.borderWidth = 0.5
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.cornerRadius = 5.0
+        self.delegate = self
     }
     
     let daysString: [String] = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    let numbers: [String] = ["1", "2", "3", "4", "5", "6", "7"]
+    var selectedDay: String?
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if component == 0 {
-            return daysString[row]
-        } else {
-            return numbers[row]
-        }
+        return daysString[row]
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -61,7 +59,36 @@ final class SelectDaysView: UITextField, UIPickerViewDelegate, UIPickerViewDataS
     
     @objc func doneBtnAction() {
         self.resignFirstResponder()
+        self.delegate?.textFieldDidEndEditing(self)
     }
     
+    func setSelectedDay(_ day: String) {
+        selectedDay = day
+    }
     
+    func showSelectionAlert() {
+        let alert = UIAlertController(title: "Select Day", message: nil, preferredStyle: .actionSheet)
+        
+        for day in daysString {
+            let action = UIAlertAction(title: day, style: .default) { [weak self] _ in
+                self?.setSelectedDay(day)
+            }
+            alert.addAction(action)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        if let viewController = UIApplication.shared.keyWindow?.rootViewController {
+            viewController.present(alert, animated: true, completion: nil)
+        }
+    }
+}
+
+extension SelectDaysView: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let selectedDay = selectedDay {
+            textField.text = selectedDay
+        }
+    }
 }
