@@ -128,6 +128,7 @@ class StopwatchVC: UIViewController {
     func firstSetup() {
         guard stopwatchManager.firstRunning == true else { return }
         if stopwatchManager.isRunning == true {
+            animationStart()
             stopwatchStart()
             setupWorkIcon()
         } else {
