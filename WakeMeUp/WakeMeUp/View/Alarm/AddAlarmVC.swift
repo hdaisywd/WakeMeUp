@@ -102,6 +102,33 @@ class AddAlarmVC: UIViewController {
         return soundView
     }()
     
+    private lazy var game = {
+        let gameView = UIView()
+        
+        let gameLabel = UILabel()
+        gameLabel.text = "Game"
+        gameLabel.textAlignment = .center
+        
+        let selectGame = SelectSoundPickerView()
+        
+        gameView.addSubview(gameLabel)
+        gameView.addSubview(selectGame)
+        
+        gameLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.centerY.equalTo(gameView.snp.centerY)
+            make.width.equalTo(self.labelWidth)
+        }
+        
+        selectGame.snp.makeConstraints { make in
+            make.left.equalTo(gameLabel.snp.right).offset(10)
+            make.centerY.equalTo(gameView.snp.centerY)
+            make.width.equalTo(self.viewWidth)
+        }
+        
+        return gameView
+    }()
+    
     private lazy var selectRepeat = {
         let selectRepeat = UIView()
         
@@ -109,7 +136,9 @@ class AddAlarmVC: UIViewController {
         label.text = "Repeat"
         
         let checkbox = UIButton()
-        checkbox.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .light)
+        let image = UIImage(systemName: "checkmark.circle", withConfiguration: imageConfig)
+        checkbox.setImage(image, for: .normal)
         
         selectRepeat.addSubview(label)
         selectRepeat.addSubview(checkbox)
@@ -120,7 +149,8 @@ class AddAlarmVC: UIViewController {
         }
         
         checkbox.snp.makeConstraints { make in
-            make.left.equalTo(label.snp.right).offset(3)
+            make.left.equalTo(label.snp.right).offset(5)
+            make.centerY.equalTo(selectRepeat.snp.centerY)
         }
         
         return selectRepeat
@@ -154,42 +184,61 @@ class AddAlarmVC: UIViewController {
         view.addSubview(titleView)
         view.addSubview(days)
         view.addSubview(sound)
+        view.addSubview(game)
+        view.addSubview(selectRepeat)
         
         datepicker.snp.makeConstraints { make in
             make.centerX.equalTo(self.view.snp.centerX)
             make.top.equalTo(self.view.snp.top).offset(100)
         }
-        
-        titleView.backgroundColor = .red
+
         titleView.snp.makeConstraints { make in
             make.top.equalTo(datepicker.snp.bottom).offset(30)
             make.centerX.equalTo(self.view.snp.centerX)
             make.width.equalTo(totalViewWidth)
             make.height.equalTo(totalViewHeight)
         }
-        
-        days.backgroundColor = .red
+
         days.snp.makeConstraints { make in
             make.top.equalTo(titleView.snp.bottom).offset(5)
             make.centerX.equalTo(self.view.snp.centerX)
             make.width.equalTo(totalViewWidth)
             make.height.equalTo(totalViewHeight)
         }
-        
-        sound.backgroundColor = .red
+
         sound.snp.makeConstraints { make in
             make.top.equalTo(days.snp.bottom).offset(5)
             make.centerX.equalTo(self.view.snp.centerX)
             make.width.equalTo(totalViewWidth)
             make.height.equalTo(totalViewHeight)
         }
-    }
-    
-    @objc func cancelButtonAction() {
+
+        game.snp.makeConstraints { make in
+            make.top.equalTo(sound.snp.bottom).offset(5)
+            make.centerX.equalTo(self.view.snp.centerX)
+            make.width.equalTo(totalViewWidth)
+            make.height.equalTo(totalViewHeight)
+        }
+
+        selectRepeat.snp.makeConstraints { make in
+            make.top.equalTo(game.snp.bottom).offset(5)
+            make.centerX.equalTo(self.view.snp.centerX)
+            make.width.equalTo(totalViewWidth)
+            make.height.equalTo(totalViewHeight)
+        }
+        
         
     }
     
+    @objc func cancelButtonAction() {
+
+    }
+    
     @objc func saveButtonAction() {
+
+    }
+    
+    @objc func selectRepeatAction() {
         
     }
     

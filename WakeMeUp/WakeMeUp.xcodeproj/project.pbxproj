@@ -109,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				AB1502EA2AC6152F00BBA7E4 /* MyTextfield.swift */,
+				AB99C7E52AC2A77B00033060 /* CustomTableViewCell.swift */,
 			);
 			path = SubComponents;
 			sourceTree = "<group>";
@@ -136,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				ABEAB8F82AC186F600078F72 /* AlarmVC.swift */,
-				AB99C7E52AC2A77B00033060 /* CustomTableViewCell.swift */,
 				ABFC99E82AC5D34400095448 /* AddAlarmVC.swift */,
 			);
 			path = Alarm;
