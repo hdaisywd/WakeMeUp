@@ -8,6 +8,10 @@ class AlarmVC: UIViewController {
     
     static let alarmTableViewIdentifier = "AlarmTableViewCell"
     
+    let mustData: [Alarms] = [
+        Alarms(title: "스크럼하기", days: "MON TUE WED THU FRI", time: "09:30 AM", isAble: true, repeating: true)
+    ]
+    
     var dummyData: [Alarms] = []
     
     // MARK: Property
@@ -20,7 +24,7 @@ class AlarmVC: UIViewController {
         return label
     }()
     
-    private lazy var alarmList = {
+    lazy var alarmList = {
         let tableview = UITableView()
         tableview.dataSource = self
         tableview.delegate = self
@@ -57,15 +61,17 @@ class AlarmVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        deleteAllAlarms()
         loadData()
-        print(dummyData)
+        print("더미 데이터: ", dummyData)
         configureLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        createDummyData()
     }
     
     // MARK: Dummy Data
@@ -106,7 +112,23 @@ class AlarmVC: UIViewController {
         }
     }
 
+    func deleteAllAlarms() {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Alarm")
 
+        do {
+            let alarms = try context.fetch(fetchRequest)
+            for alarm in alarms {
+                if let alarmObject = alarm as? NSManagedObject {
+                    context.delete(alarmObject)
+                }
+            }
+
+            try context.save()
+        } catch {
+            print("모든 알람 데이터를 삭제할 수 없습니다. 오류: \(error)")
+        }
+    }
 
     
     // MARK: Layout configuration
@@ -139,6 +161,10 @@ class AlarmVC: UIViewController {
     @objc func addButtonAction() {
         let nextVC = UINavigationController(rootViewController: AddAlarmVC())
         self.present(nextVC, animated: true)
+        
+        DispatchQueue.main.async {
+            self.alarmList.reloadData()
+        }
     }
 }
 
@@ -146,7 +172,11 @@ class AlarmVC: UIViewController {
 extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyData.count
+        if section == 0 {
+            return mustData.count
+        } else {
+            return dummyData.count
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -174,14 +204,22 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlarmVC.alarmTableViewIdentifier, for: indexPath) as! AlarmTableViewCell
         
-        cell.selectionStyle = .none 
+        cell.selectionStyle = .none
         cell.contentView.backgroundColor = UIColor(hexCode: "B8C0FF")
         
-        let alarm = dummyData[indexPath.row]
-        cell.title.text = alarm.title
-        cell.day.text = alarm.days
-        cell.time.text = alarm.time
-        cell.alarmSwitch.isEnabled = alarm.isAble
+        if indexPath.section == 0 {
+            let alarm = mustData[indexPath.row]
+            cell.title.text = alarm.title
+            cell.day.text = alarm.days
+            cell.time.text = alarm.time
+            cell.alarmSwitch.isEnabled = alarm.isAble
+        } else if indexPath.section == 1 {
+            let alarm = dummyData[indexPath.row]
+            cell.title.text = alarm.title
+            cell.day.text = alarm.days
+            cell.time.text = alarm.time
+            cell.alarmSwitch.isEnabled = alarm.isAble
+        }
         
         return cell
     }
