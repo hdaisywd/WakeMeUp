@@ -1,12 +1,14 @@
 
 import Foundation
 import UIKit
+import CoreData
+
 
 class AlarmVC: UIViewController {
     
     static let alarmTableViewIdentifier = "AlarmTableViewCell"
     
-    let data = [1, 2, 3]
+    var dummyData: [Alarms] = []
     
     // MARK: Property
     private let header = {
@@ -55,6 +57,8 @@ class AlarmVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        loadData()
+        print(dummyData)
         configureLayout()
     }
     
@@ -63,6 +67,48 @@ class AlarmVC: UIViewController {
         
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
+    
+    // MARK: Dummy Data
+    func createDummyData() {
+        let shared = AlarmManager.shared
+        shared.createData(title: "스크럼 하기", days: "MON", time: "09:00 AM", isAble: true, repeating: true)
+        shared.createData(title: "밥 먹기", days: "TUE WED", time: "14:00 AM", isAble: true, repeating: true)
+        shared.createData(title: "운동 하기", days: "NO REPEAT", time: "20:30 AM", isAble: true, repeating: false)
+        
+        if let alarms = shared.getAllAlarms() {
+            for alarm in alarms {
+                let title = alarm.value(forKey: "title") as! String
+                let days = alarm.value(forKey: "days") as! String
+                let time = alarm.value(forKey: "time") as! String
+                let isAble = alarm.value(forKey: "isAble") as! Bool
+                let repeating = alarm.value(forKey: "repeating") as! Bool
+
+                let alarmInstance = Alarms(title: title, days: days, time: time, isAble: isAble, repeating: repeating)
+                dummyData.append(alarmInstance)
+            }
+        }
+    }
+
+
+    func loadData() {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        if let alarms = AlarmManager.shared.getAllAlarms() {
+            for alarm in alarms {
+                let title = alarm.value(forKey: "title") as! String
+                let days = alarm.value(forKey: "days") as! String
+                let time = alarm.value(forKey: "time") as! String
+                let isAble = alarm.value(forKey: "isAble") as! Bool
+                let repeating = alarm.value(forKey: "repeating") as! Bool
+
+                let alarmInstance = Alarms(title: title, days: days, time: time, isAble: isAble, repeating: repeating)
+                dummyData.append(alarmInstance)
+            }
+        }
+    }
+
+
+
     
     // MARK: Layout configuration
     private func configureLayout() {
@@ -101,7 +147,7 @@ class AlarmVC: UIViewController {
 extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return dummyData.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -131,6 +177,12 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.selectionStyle = .none 
         cell.contentView.backgroundColor = UIColor(hexCode: "B8C0FF")
+        
+        let alarm = dummyData[indexPath.row]
+        cell.title.text = alarm.title
+        cell.day.text = alarm.days
+        cell.time.text = alarm.time
+        cell.alarmSwitch.isEnabled = alarm.isAble
         
         return cell
     }

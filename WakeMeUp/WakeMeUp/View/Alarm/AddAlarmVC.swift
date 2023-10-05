@@ -191,40 +191,35 @@ class AddAlarmVC: UIViewController {
             make.centerX.equalTo(self.view.snp.centerX)
             make.top.equalTo(self.view.snp.top).offset(100)
         }
-        
-        titleView.backgroundColor = .red
+
         titleView.snp.makeConstraints { make in
             make.top.equalTo(datepicker.snp.bottom).offset(30)
             make.centerX.equalTo(self.view.snp.centerX)
             make.width.equalTo(totalViewWidth)
             make.height.equalTo(totalViewHeight)
         }
-        
-        days.backgroundColor = .red
+
         days.snp.makeConstraints { make in
             make.top.equalTo(titleView.snp.bottom).offset(5)
             make.centerX.equalTo(self.view.snp.centerX)
             make.width.equalTo(totalViewWidth)
             make.height.equalTo(totalViewHeight)
         }
-        
-        sound.backgroundColor = .red
+
         sound.snp.makeConstraints { make in
             make.top.equalTo(days.snp.bottom).offset(5)
             make.centerX.equalTo(self.view.snp.centerX)
             make.width.equalTo(totalViewWidth)
             make.height.equalTo(totalViewHeight)
         }
-        
-        game.backgroundColor = .red
+
         game.snp.makeConstraints { make in
             make.top.equalTo(sound.snp.bottom).offset(5)
             make.centerX.equalTo(self.view.snp.centerX)
             make.width.equalTo(totalViewWidth)
             make.height.equalTo(totalViewHeight)
         }
-        
-        selectRepeat.backgroundColor = .red
+
         selectRepeat.snp.makeConstraints { make in
             make.top.equalTo(game.snp.bottom).offset(5)
             make.centerX.equalTo(self.view.snp.centerX)
@@ -236,10 +231,14 @@ class AddAlarmVC: UIViewController {
     }
     
     @objc func cancelButtonAction() {
-        
+
     }
     
     @objc func saveButtonAction() {
+
+    }
+    
+    @objc func selectRepeatAction() {
         
     }
     
