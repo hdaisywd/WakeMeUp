@@ -102,33 +102,6 @@ class AddAlarmVC: UIViewController {
         return soundView
     }()
     
-    private lazy var game = {
-        let gameView = UIView()
-        
-        let gameLabel = UILabel()
-        gameLabel.text = "Game"
-        gameLabel.textAlignment = .center
-        
-        let selectGame = SelectSoundPickerView()
-        
-        gameView.addSubview(gameLabel)
-        gameView.addSubview(selectGame)
-        
-        gameLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.centerY.equalTo(gameView.snp.centerY)
-            make.width.equalTo(self.labelWidth)
-        }
-        
-        selectGame.snp.makeConstraints { make in
-            make.left.equalTo(gameLabel.snp.right).offset(10)
-            make.centerY.equalTo(gameView.snp.centerY)
-            make.width.equalTo(self.viewWidth)
-        }
-        
-        return gameView
-    }()
-    
     private lazy var selectRepeat = {
         let selectRepeat = UIView()
         
@@ -184,7 +157,6 @@ class AddAlarmVC: UIViewController {
         view.addSubview(titleView)
         view.addSubview(days)
         view.addSubview(sound)
-        view.addSubview(game)
         view.addSubview(selectRepeat)
         
         datepicker.snp.makeConstraints { make in
@@ -213,15 +185,8 @@ class AddAlarmVC: UIViewController {
             make.height.equalTo(totalViewHeight)
         }
 
-        game.snp.makeConstraints { make in
-            make.top.equalTo(sound.snp.bottom).offset(5)
-            make.centerX.equalTo(self.view.snp.centerX)
-            make.width.equalTo(totalViewWidth)
-            make.height.equalTo(totalViewHeight)
-        }
-
         selectRepeat.snp.makeConstraints { make in
-            make.top.equalTo(game.snp.bottom).offset(5)
+            make.top.equalTo(sound.snp.bottom).offset(5)
             make.centerX.equalTo(self.view.snp.centerX)
             make.width.equalTo(totalViewWidth)
             make.height.equalTo(totalViewHeight)
