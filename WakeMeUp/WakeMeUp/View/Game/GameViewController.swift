@@ -96,14 +96,14 @@ class GameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if(disMisBol == 3){
             disMisBol = 0
-            self.presentingViewController?.dismiss(animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
     }
     // 뷰가 나타난 후 띄워줄 게임 스타트 알럿
     override func viewDidAppear(_ animated: Bool) {
         if(disMisBol == 3){
             disMisBol = 0
-            self.presentingViewController?.dismiss(animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
         alertStratButton()
     }

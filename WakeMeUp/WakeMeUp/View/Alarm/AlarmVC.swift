@@ -85,8 +85,8 @@ class AlarmVC: UIViewController {
     func sendNotification(seconds: Double) {
         let notificationContent = UNMutableNotificationContent()
         
-        notificationContent.title = "알림 테스트"
-        notificationContent.body = "이것은 알림을 테스트 하는 것이다"
+        notificationContent.title = "스크럼"
+        notificationContent.body = "일어나세요! 스크럼 시간입니다!"
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
         let request = UNNotificationRequest(identifier: "testNotification",
@@ -97,10 +97,14 @@ class AlarmVC: UIViewController {
             if let error = error {
                 print("Notification Error: ", error)
             } else {
-//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                if let gameVC = storyboard.instantiateViewController(withIdentifier: "GameVC") as? GameViewController {
-//                    self.navigationController?.pushViewController(gameVC, animated: true)
-//                }
+                print("프린트 문 ㅋ.ㅋ")
+                let storyboard = UIStoryboard(name: "GameVC", bundle: nil)
+                if let gameVC = storyboard.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController {
+                    DispatchQueue.main.async {
+                        Thread.sleep(forTimeInterval: 12.0)
+                        self.navigationController?.pushViewController(gameVC, animated: true)
+                    }
+                }
             }
         }
     }
