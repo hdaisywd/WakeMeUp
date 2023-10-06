@@ -86,6 +86,23 @@ class CompleteViewController : UIViewController {
         
         
         let cancelAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.destructive){(_) in
+            let userdata = UserDefaults.standard
+            // 오늘날짜 찾기
+            let imageDateFormatter = DateFormatter()
+            imageDateFormatter.dateFormat = "yyyyMMdd"
+   
+            // 유저 디폴트로 저장된 배열 가져오기
+            var arraySet = ["20231001"]
+            if let items = userdata.array(forKey: "completeDate") as? [String] {
+                arraySet  = items
+            }
+            
+            // 유저 디폴트로 오늘 날짜 추가해서 저장하기
+            if(arraySet.last! != imageDateFormatter.string(from: Date())){
+                arraySet.append(imageDateFormatter.string(from: Date()) )
+                userdata.set(arraySet, forKey: "completeDate")
+            }
+            
             self.presentingViewController?.dismiss(animated: true)
             disMisBol = 3
         }
