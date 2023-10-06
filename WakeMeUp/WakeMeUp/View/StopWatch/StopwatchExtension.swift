@@ -6,7 +6,9 @@ enum MyColor {
     static let indicatorColor = UIColor(hexCode: "e7c6ff")
     static let stopWatchColor = UIColor(hexCode: "c8b6ff")
     static let largeLapTime = UIColor(hexCode: "f49cbb")
-    static let smallLapTime = UIColor(hexCode: "b388eb")
+    static let smallLapTime = UIColor(hexCode: "b388eb") //bbd0ff
+    static let timer1 = UIColor(hexCode: "bbd0ff")
+    static let timer2 = UIColor(hexCode: "b8c0ff")
 }
 
 enum MyButton {
