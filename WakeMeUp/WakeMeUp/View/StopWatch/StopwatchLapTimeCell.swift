@@ -2,13 +2,15 @@ import UIKit
 
 class StopwatchLapTimeCell: UITableViewCell {
 
+    // MARK: - 랩 타이머
     var lapCounter: Int? {
         didSet {
             guard let lapCounter = lapCounter else { return }
-            lapLabel.text = "Lap \(lapCounter)"
+            lapLabel.text = "랩 \(lapCounter)"
         }
     }
     
+    // MARK: - 랩 순서 표시
     let lapLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -17,6 +19,7 @@ class StopwatchLapTimeCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - 랩 시간 표시
     lazy var minLabel = UILabel.makeTimeLabel("00", .center, 20, .black)
     lazy var secLabel = UILabel.makeTimeLabel("00", .center, 20, .black)
     lazy var nanoSecLabel = UILabel.makeTimeLabel("00", .left, 20, .black)
@@ -33,6 +36,7 @@ class StopwatchLapTimeCell: UITableViewCell {
         return sv
     }()
     
+    // MARK: - 셀 별 구분선
     let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
@@ -40,6 +44,7 @@ class StopwatchLapTimeCell: UITableViewCell {
         return view
     }()
     
+    // MARK: - 생성자
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         autoLayout()
@@ -50,6 +55,7 @@ class StopwatchLapTimeCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - 오토레이아웃
     func autoLayout() {
         contentView.addSubview(lapLabel)
         contentView.addSubview(timeLabelSV)
@@ -73,11 +79,13 @@ class StopwatchLapTimeCell: UITableViewCell {
         ])
     }
     
+    // MARK: - 레이블폰트 일괄설정
     func setupFont() {
         lazy var timeLabel = [minLabel,secLabel,nanoSecLabel,dotminLabel,ColonLabel]
         timeLabel.forEach { $0.font = .boldSystemFont(ofSize: 20)}
     }
     
+    // MARK: - 셀 간격조절
     override func layoutSubviews() {
         super.layoutSubviews()
         
