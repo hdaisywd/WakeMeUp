@@ -190,6 +190,7 @@ class CircularProgressView: UIView {
         notificationContent.title = "시계"
         notificationContent.body = "타이머"
         notificationContent.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(self.sound).mp3"))
+        print(self.sound)
         notificationContent.badge = 1
         self.notificationId = "Timer"
         let request = UNNotificationRequest(identifier: "Timer",

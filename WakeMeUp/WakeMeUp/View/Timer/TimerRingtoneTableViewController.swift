@@ -14,8 +14,10 @@ protocol TestDelegate: AnyObject {
 class TimerRingtoneTableViewController: UIViewController {
     weak var Delegate: TestDelegate?
     var audioPlayer: AVAudioPlayer?
-    private var soundList: [String] = ["forest", "Chainsaw-Man-Opening", "Howls-Moving-Castle", "iPhone-Alarm-Original", "sky"]
+    private var soundList: [String] = ["Charlie-Puth-I-Dont-Think-That-I-Like-Her", "Chainsaw-Man-Opening", "GODS-ft.-NewJeans-뉴진스-League-of-Legends-2023", "iPhone-Alarm-Original", "iPhone-14-Original"]
     var selectedSoundFromTimerViewController: String? = "기본음"
+    var translateSoundName: String = "기본음"
+    var sound: String = "iPhone-Alarm-Original"
     let tableView: UITableView = {
         let tableview = UITableView()
         tableview.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +41,7 @@ class TimerRingtoneTableViewController: UIViewController {
         view.addSubview(navigationBar)
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -51,7 +53,7 @@ class TimerRingtoneTableViewController: UIViewController {
             navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         tableView.clipsToBounds = true
-        tableView.layer.cornerRadius = 10
+        tableView.layer.cornerRadius = 0
 
         let leftBarButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelButtonTapped))
         let rightBarButton = UIBarButtonItem(title: "설정", style: .plain, target: self, action: #selector(settingButtonTapped))
@@ -68,6 +70,7 @@ class TimerRingtoneTableViewController: UIViewController {
     }
 
     @objc func settingButtonTapped() {
+        Delegate?.test(music: sound, alarmSound: translateSoundName)
         dismiss(animated: true)
     }
 
@@ -78,16 +81,16 @@ class TimerRingtoneTableViewController: UIViewController {
 
     public func translateSoundNameToKorean(text: String) -> String {
         switch text {
-        case "forest":
-            return "숲소리"
+        case "Charlie-Puth-I-Dont-Think-That-I-Like-Her":
+            return "I Dont Think That I Like Her"
         case "Chainsaw-Man-Opening":
             return "킥 백"
-        case "Howls-Moving-Castle":
-            return "하울의 움직이는 성"
+        case "GODS-ft.-NewJeans-뉴진스-League-of-Legends-2023":
+            return "GODS"
         case "iPhone-Alarm-Original":
             return "기본음"
-        case "sky":
-            return "사건의 지평선"
+        case "iPhone-14-Original":
+            return "아이폰 14 기본음"
         default:
             return ""
         }
@@ -95,16 +98,16 @@ class TimerRingtoneTableViewController: UIViewController {
 
     public func translateSoundName(text: String) -> String {
         switch text {
-        case "숲소리":
-            return "forest"
+        case "I Dont Think That I Like Her":
+            return "Charlie-Puth-I-Dont-Think-That-I-Like-Her"
         case "킥 백":
             return "Chainsaw-Man-Opening"
-        case "하울의 움직이는 성":
-            return "Howls-Moving-Castle"
+        case "GODS":
+            return "GODS-ft.-NewJeans-뉴진스-League-of-Legends-2023"
         case "기본음":
             return "iPhone-Alarm-Original"
-        case "사건의 지평선":
-            return "sky"
+        case "아이폰 14 기본음":
+            return "iPhone-14-Original"
         default:
             return ""
         }
@@ -137,38 +140,25 @@ extension TimerRingtoneTableViewController: UITableViewDelegate {
             return
         }
 
-        tableView.visibleCells[indexPath.row].accessoryType = .checkmark
         switch indexPath.row {
         case 0:
-            let sound = soundList[0]
-            let translateName = translateSoundNameToKorean(text: sound)
-            Delegate?.test(music: sound, alarmSound: translateName)
-            print(sound)
+            sound = soundList[0]
+            translateSoundName = translateSoundNameToKorean(text: sound)
         case 1:
-            let sound = soundList[1]
-            let translateName = translateSoundNameToKorean(text: sound)
-            Delegate?.test(music: sound, alarmSound: translateName)
-            print(sound)
+            sound = soundList[1]
+            translateSoundName = translateSoundNameToKorean(text: sound)
         case 2:
-            let sound = soundList[2]
-            let translateName = translateSoundNameToKorean(text: sound)
-            Delegate?.test(music: sound, alarmSound: translateName)
-            print(sound)
+            sound = soundList[2]
+            translateSoundName = translateSoundNameToKorean(text: sound)
         case 3:
-            let sound = soundList[3]
-            let translateName = translateSoundNameToKorean(text: sound)
-            Delegate?.test(music: sound, alarmSound: translateName)
-            print(sound)
+            sound = soundList[3]
+            translateSoundName = translateSoundNameToKorean(text: sound)
         case 4:
-            let sound = soundList[4]
-            let translateName = translateSoundNameToKorean(text: sound)
-            Delegate?.test(music: sound, alarmSound: translateName)
-            print(sound)
+            sound = soundList[4]
+            translateSoundName = translateSoundNameToKorean(text: sound)
         default:
-            let sound = soundList[3]
-            let translateName = translateSoundNameToKorean(text: sound)
-            Delegate?.test(music: sound, alarmSound: translateName)
-            print(sound)
+            sound = soundList[3]
+            translateSoundName = translateSoundNameToKorean(text: sound)
         }
 
         let url = Bundle.main.url(forResource: translateSoundName(text: label.soundLabel.text!), withExtension: "mp3")
@@ -181,12 +171,16 @@ extension TimerRingtoneTableViewController: UITableViewDelegate {
                 print(error)
             }
         }
+
         let _ = tableView.visibleCells.map { cell in
             if cell.accessoryType == .checkmark {
                 cell.accessoryType = .none
                 return
             }
         }
+
+        tableView.visibleCells[indexPath.row].accessoryType = .checkmark
+
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
