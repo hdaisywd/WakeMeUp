@@ -14,7 +14,8 @@ class CalendarVC: UIViewController {
     let userdata = UserDefaults.standard
     // 현재 캘린더가 보여주고 있는 Page 트래킹
     lazy var currentPage = calendarView.currentPage
-    fileprivate var datesWithCat = ["20231001"]
+    fileprivate var datesWithCat = ["20231003","20231005"]
+    var calendarResultContent = UILabel()
 
     
     private lazy var calendarView: FSCalendar = {
@@ -62,13 +63,61 @@ class CalendarVC: UIViewController {
         
         return calendar
     }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
         // 유저 디폴트로 완료한 날짜 불러오기
         if let items = userdata.array(forKey: "completeDate") as? [String] {
             datesWithCat  = items
         }
+        let imageDateFormatter = DateFormatter()
+        imageDateFormatter.dateFormat = "yyyyMMdd"
+        
+        print(datesWithCat)
+        
+        if(imageDateFormatter.string(from: Date()) == datesWithCat.last!){
+            
+            if((Int(datesWithCat[datesWithCat.count - 1])! - Int(datesWithCat[datesWithCat.count - 2])!) == 1){
+                
+                var i = datesWithCat.count - 2
+                var compleDateCount = 1
+                var arrayComparison = Int(datesWithCat[datesWithCat.count - 1])!
+                while 0 <= i {
+                    if((arrayComparison - Int(datesWithCat[i])!) == 1){
+                        arrayComparison = Int(datesWithCat[i])!
+                        compleDateCount += 1
+                    }else{
+                        calendarResultContent.text = "\(compleDateCount)일 연속 상쾌한 아침 달성!"
+                        break
+                    }
+                    if(i == 0){
+                        calendarResultContent.text = "\(compleDateCount)일 연속 상쾌한 아침 달성!"
+                        break
+                    }
+                    i -= 1
+                }
+            }else{
+                calendarResultContent.text = "조금만 더 힘내봐요!"
+            }
+        }
+    }
+    
+    override func viewDidLoad() {
+        self.view.addSubview(calendarResultContent)
+        super.viewDidLoad()
+        
+        let safeArea = view.safeAreaLayoutGuide
+        
+        
+        calendarResultContent.translatesAutoresizingMaskIntoConstraints = false
+
+        calendarResultContent.text = ""
+        calendarResultContent.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30).isActive = true
+        calendarResultContent.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 10).isActive = true
+        calendarResultContent.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: 10).isActive = true
+        calendarResultContent.textColor = .black
+        calendarResultContent.font = .boldSystemFont(ofSize: 30)
+        calendarResultContent.textAlignment = .center
+      
+            
         setUI()
         setLayout()
 //        setAction()
@@ -141,26 +190,5 @@ extension CalendarVC: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelega
        }
        
 
-    
-    // 셀 선택 색상
-//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
-//
-//        let imageDateFormatter = DateFormatter()
-//        imageDateFormatter.dateFormat = "yyyyMMdd"
-//
-//
-//        switch imageDateFormatter.string(from: date) {
-//        case "20231013":
-//            return #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
-//        case "20231023":
-//            return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//        case "20231024":
-//            return #colorLiteral(red: 0.999460876, green: 0.8386494517, blue: 0.9997813106, alpha: 1)
-//        default:
-//            return appearance.selectionColor
-//        }
-//    }
 
 }
-
-
