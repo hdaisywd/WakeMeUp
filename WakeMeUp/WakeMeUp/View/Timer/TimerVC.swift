@@ -160,42 +160,6 @@ class TimerVC: UIViewController {
         }
     }
     
-    
-    
-    func requestNotificationAuthorization() {
-        let authOptions = UNAuthorizationOptions(arrayLiteral: .alert, .badge, .sound)
-        
-        userNotificationCenter.requestAuthorization(options: authOptions) { success, error in
-            if let error = error {
-                print("Error: \(error)")
-            }
-        }
-    }
-    func sendNotification(seconds: Double) {
-        let notificationContent = UNMutableNotificationContent()
-        
-        notificationContent.title = "시계"
-        notificationContent.body = "타이머"
-        notificationContent.sound = .default
-        notificationContent.badge = 1
-        notificationId = "\(seconds)"
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
-        let request = UNNotificationRequest(identifier: "\(seconds)",
-                                            content: notificationContent,
-                                            trigger: trigger)
-        
-        userNotificationCenter.add(request) { error in
-            if let error = error {
-                print("Notification Error: ", error)
-            }
-        }
-    }
-    func removeNotification(identifier: String) {
-        let notification = UNUserNotificationCenter.current()
-        notification.removePendingNotificationRequests(withIdentifiers: [identifier])
-        print(identifier)
-    }
-    
     @objc func start() {
         if getAlertTimeWithTimeInterval() != 0.0 {
             self.circularProgressView.isHidden = false
@@ -210,9 +174,6 @@ class TimerVC: UIViewController {
                 self?.timePicker.alpha = 0
                 self?.circularProgressView.alpha = 1
             }
-            requestNotificationAuthorization()
-            removeNotification(identifier: notificationId)
-            sendNotification(seconds: self.getAlertTimeWithTimeInterval())
         }
     }
     
@@ -233,7 +194,6 @@ class TimerVC: UIViewController {
             self.timePicker.selectRow(0, inComponent: 0, animated: false)
             self.timePicker.selectRow(0, inComponent: 1, animated: false)
             self.timePicker.selectRow(0, inComponent: 2, animated: false)
-            removeNotification(identifier: notificationId)
         }
     }
     
