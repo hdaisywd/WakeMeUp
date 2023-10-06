@@ -11,10 +11,10 @@ import SnapKit
 
 
 class CalendarVC: UIViewController {
-    
+    let userdata = UserDefaults.standard
     // 현재 캘린더가 보여주고 있는 Page 트래킹
     lazy var currentPage = calendarView.currentPage
-    fileprivate let datesWithCat = ["20231006","20231008","20231022"]
+    fileprivate var datesWithCat = ["20231001"]
 
     
     private lazy var calendarView: FSCalendar = {
@@ -65,6 +65,10 @@ class CalendarVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // 유저 디폴트로 완료한 날짜 불러오기
+        if let items = userdata.array(forKey: "completeDate") as? [String] {
+            datesWithCat  = items
+        }
         setUI()
         setLayout()
 //        setAction()
