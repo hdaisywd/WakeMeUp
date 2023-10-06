@@ -92,7 +92,7 @@ class CompleteViewController : UIViewController {
             imageDateFormatter.dateFormat = "yyyyMMdd"
    
             // 유저 디폴트로 저장된 배열 가져오기
-            var arraySet = ["20231001"]
+            var arraySet = ["20231003","20231005"]
             if let items = userdata.array(forKey: "completeDate") as? [String] {
                 arraySet  = items
             }
