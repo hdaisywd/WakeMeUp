@@ -30,17 +30,6 @@ class StopwatchView: UIView {
     private let watchDiameter = UIScreen.main.bounds.height/3
     private let buttonDiameter = UIScreen.main.bounds.width/6
     
-    // MARK: - 타이틀
-    private let header = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Stopwatch"
-        label.textColor = MyColor.smallLapTime
-        label.font = .boldSystemFont(ofSize: 35)
-        
-        return label
-    }()
-    
     // MARK: - stopwatchView
     let stopwatchView: UIView = {
         let view = UIView()
@@ -257,7 +246,6 @@ class StopwatchView: UIView {
     
     // MARK: - 레이아웃 설정
     private func autoLayout() {
-        addSubview(header)
         addSubview(stopwatchView)
         addSubview(startAndPuaseButton)
         addSubview(lapAndResetButton)
@@ -266,10 +254,8 @@ class StopwatchView: UIView {
         addSubview(lapTable)
         
         NSLayoutConstraint.activate([
-            header.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            header.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 25),
             
-            stopwatchView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 30),
+            stopwatchView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             stopwatchView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stopwatchView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stopwatchView.heightAnchor.constraint(equalToConstant: watchDiameter),

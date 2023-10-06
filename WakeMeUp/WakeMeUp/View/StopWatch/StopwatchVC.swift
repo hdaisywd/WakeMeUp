@@ -21,6 +21,7 @@ class StopwatchVC: UIViewController {
     
     // MARK: - 생성자
     override func viewDidLoad() {
+        print("test")
         super.viewDidLoad()
         view = stopwatchView
         setupAction()
@@ -33,6 +34,22 @@ class StopwatchVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        if stopwatchManager.isRunning {
+            animationStart()
+        } else {
+            animationStop()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("didtest")
+        super.viewDidAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        if stopwatchManager.isRunning {
+            animationStart()
+        } else {
+            animationStop()
+        }
     }
     
     // MARK: - 랩 테이블
@@ -128,6 +145,7 @@ class StopwatchVC: UIViewController {
     func firstSetup() {
         guard stopwatchManager.firstRunning == true else { return }
         if stopwatchManager.isRunning == true {
+            animationStart()
             stopwatchStart()
             setupWorkIcon()
         } else {
