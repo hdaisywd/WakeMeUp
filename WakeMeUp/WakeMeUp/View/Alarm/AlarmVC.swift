@@ -1,4 +1,3 @@
-
 import Foundation
 import UIKit
 import CoreData
@@ -17,14 +16,6 @@ class AlarmVC: UIViewController {
     var dummyData: [Alarms] = []
     
     // MARK: Property
-    private let header = {
-        let label = UILabel()
-        label.text = "Alarms"
-        label.textColor = UIColor(hexCode: "0077b6")
-        label.font = .boldSystemFont(ofSize: 35)
-        
-        return label
-    }()
     
     lazy var alarmList = {
         let tableview = UITableView()
@@ -76,8 +67,8 @@ class AlarmVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        navigationItem.title = "Alarms"
         createDummyData()
     }
     
@@ -172,22 +163,16 @@ class AlarmVC: UIViewController {
     
     // MARK: Layout configuration
     private func configureLayout() {
-        view.addSubview(header)
         view.addSubview(alarmList)
         view.addSubview(addButton)
         
-        header.translatesAutoresizingMaskIntoConstraints = false
         alarmList.translatesAutoresizingMaskIntoConstraints = false
         addButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            header.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            header.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            
-            alarmList.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 10),
-            alarmList.leadingAnchor.constraint(equalTo: header.leadingAnchor),
-            alarmList.trailingAnchor.constraint(equalTo: header.trailingAnchor),
+            alarmList.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            alarmList.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            alarmList.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             alarmList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
