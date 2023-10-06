@@ -132,6 +132,7 @@ class CircularProgressView: UIView {
         self.setTimeLabel(duration: self.remainingSeconds!)
         self.progressLayer.strokeEnd = presentation.strokeEnd
         self.progressLayer.removeAnimation(forKey: self.animationName)
+        self.pulseLayer.removeAnimation(forKey: "pulseAnimation")
     }
 
     func resume() {
@@ -163,6 +164,7 @@ class CircularProgressView: UIView {
         animation.delegate = self
         self.progressLayer.strokeEnd = 1
         self.progressLayer.add(animation, forKey: self.animationName)
+        animatePulseLayer()
     }
 
     func reset() {
