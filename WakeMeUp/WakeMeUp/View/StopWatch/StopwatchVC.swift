@@ -33,7 +33,7 @@ class StopwatchVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationItem.title = "스톱워치"
         if stopwatchManager.isRunning {
             animationStart()
         } else {
@@ -41,16 +41,7 @@ class StopwatchVC: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print("didtest")
-        super.viewDidAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        if stopwatchManager.isRunning {
-            animationStart()
-        } else {
-            animationStop()
-        }
-    }
+    
     
     // MARK: - 랩 테이블
     func setupLapTable() {
@@ -85,6 +76,7 @@ class StopwatchVC: UIViewController {
         stopwatchManager.saveData()
     }
     
+    // MARK: - 타이머 동작함수
     func setupTime() {
         stopwatchManager.startTime = Date()
         stopwatchManager.startLap = Date()
@@ -141,6 +133,21 @@ class StopwatchVC: UIViewController {
         stopwatchView.lapAndResetButton.setImage(MyButton.resetIcon, for: .highlighted)
         stopwatchView.lapAndResetButton.imageEdgeInsets.right = 3
     }
+    
+    func calculationTimeInt(_ time: Date) -> (Int) {
+        let currentTime = Date().timeIntervalSince(time)
+        let timeDouble = Double(currentTime) * 100
+        let timeTrunc = trunc(timeDouble)
+        let timeInt = Int(timeTrunc)
+        return timeInt
+    }
+    
+    func calculationTime(_ timeInt: Int) -> (String, String, String) {
+        let time = secondsToHoursMinutesSeconds(seconds: timeInt)
+        let makeTime = makeTimeString(minutes: time.0, seconds: time.1, tenMiliSecond: time.2)
+        return makeTime
+    }
+    
     // MARK: - 첫 세팅
     func firstSetup() {
         guard stopwatchManager.firstRunning == true else { return }
@@ -158,20 +165,6 @@ class StopwatchVC: UIViewController {
                 calculationTime(timeInt)
             })
         }
-    }
-    
-    func calculationTimeInt(_ time: Date) -> (Int) {
-        let currentTime = Date().timeIntervalSince(time)
-        let timeDouble = Double(currentTime) * 100
-        let timeTrunc = trunc(timeDouble)
-        let timeInt = Int(timeTrunc)
-        return timeInt
-    }
-    
-    func calculationTime(_ timeInt: Int) -> (String, String, String) {
-        let time = secondsToHoursMinutesSeconds(seconds: timeInt)
-        let makeTime = makeTimeString(minutes: time.0, seconds: time.1, tenMiliSecond: time.2)
-        return makeTime
     }
     
     // MARK: - 타이머 로직
@@ -224,6 +217,8 @@ class StopwatchVC: UIViewController {
     }
 }
 
+// MARK: - 테이블뷰 확장
+
 extension StopwatchVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1 + lapTimes.count
@@ -251,6 +246,7 @@ extension StopwatchVC: UITableViewDataSource {
         return cell
     }
 }
+
 extension StopwatchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let lapCell = cell as? StopwatchLapTimeCell else { return }

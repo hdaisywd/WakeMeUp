@@ -63,16 +63,6 @@
 		AB607DE42ACD31D80022BCE1 /* AlarmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
 		AB6D35E02ACD28E3005AE5B4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		AB6D35E22ACD293E005AE5B4 /* CompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewController.swift; sourceTree = "<group>"; };
-		AB7F6D312ACFC80B0042BE9E /* sky.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sky.mp3; path = ../../../../sky.mp3; sourceTree = "<group>"; };
-		AB7F6D322ACFC80B0042BE9E /* iPhone-Alarm-Original.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "iPhone-Alarm-Original.mp3"; path = "../../../../iPhone-Alarm-Original.mp3"; sourceTree = "<group>"; };
-		AB7F6D332ACFC80B0042BE9E /* Chainsaw-Man-Opening.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Chainsaw-Man-Opening.mp3"; path = "../../../../Chainsaw-Man-Opening.mp3"; sourceTree = "<group>"; };
-		AB7F6D342ACFC80B0042BE9E /* Howls-Moving-Castle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Howls-Moving-Castle.mp3"; path = "../../../../Howls-Moving-Castle.mp3"; sourceTree = "<group>"; };
-		AB7F6D352ACFC80B0042BE9E /* forest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = forest.mp3; path = ../../../../forest.mp3; sourceTree = "<group>"; };
-		AB7F6D3B2ACFD3AD0042BE9E /* Chainsaw-Man-Opening.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Chainsaw-Man-Opening.mp3"; path = "../../../../Chainsaw-Man-Opening.mp3"; sourceTree = "<group>"; };
-		AB7F6D3C2ACFD3AD0042BE9E /* iPhone-Alarm-Original.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "iPhone-Alarm-Original.mp3"; path = "../../../../iPhone-Alarm-Original.mp3"; sourceTree = "<group>"; };
-		AB7F6D3D2ACFD3AD0042BE9E /* sky.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sky.mp3; path = ../../../../sky.mp3; sourceTree = "<group>"; };
-		AB7F6D3E2ACFD3AD0042BE9E /* Howls-Moving-Castle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Howls-Moving-Castle.mp3"; path = "../../../../Howls-Moving-Castle.mp3"; sourceTree = "<group>"; };
-		AB7F6D3F2ACFD3AD0042BE9E /* forest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = forest.mp3; path = ../../../../forest.mp3; sourceTree = "<group>"; };
 		AB99C7E12AC25B1900033060 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		AB99C7E32AC25C1500033060 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		AB99C7E52AC2A77B00033060 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
@@ -105,21 +95,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		523AD9D82ACFC98800EBC66E /* Recovered References */ = {
+		523AD9EF2ACFEC3C00EBC66E /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				AB7F6D342ACFC80B0042BE9E /* Howls-Moving-Castle.mp3 */,
-				AB7F6D312ACFC80B0042BE9E /* sky.mp3 */,
-				AB7F6D352ACFC80B0042BE9E /* forest.mp3 */,
-				AB7F6D332ACFC80B0042BE9E /* Chainsaw-Man-Opening.mp3 */,
-				AB7F6D322ACFC80B0042BE9E /* iPhone-Alarm-Original.mp3 */,
-				AB7F6D3E2ACFD3AD0042BE9E /* Howls-Moving-Castle.mp3 */,
-				AB7F6D3F2ACFD3AD0042BE9E /* forest.mp3 */,
-				AB7F6D3D2ACFD3AD0042BE9E /* sky.mp3 */,
-				AB7F6D3C2ACFD3AD0042BE9E /* iPhone-Alarm-Original.mp3 */,
-				AB7F6D3B2ACFD3AD0042BE9E /* Chainsaw-Man-Opening.mp3 */,
+				AB99C7E12AC25B1900033060 /* CalendarVC.swift */,
 			);
-			name = "Recovered References";
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		5243C1E42AC9390900A8030D /* StopWatch */ = {
@@ -198,7 +179,6 @@
 			children = (
 				ABEAB8D72AC1715400078F72 /* WakeMeUp */,
 				ABEAB8D62AC1715400078F72 /* Products */,
-				523AD9D82ACFC98800EBC66E /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -237,7 +217,7 @@
 				AB607DCF2AC715B10022BCE1 /* CustomComponents */,
 				AB1502E92AC6151F00BBA7E4 /* SubComponents */,
 				AB99C7E72AC2BE5200033060 /* Alarm */,
-				AB99C7E12AC25B1900033060 /* CalendarVC.swift */,
+				523AD9EF2ACFEC3C00EBC66E /* Calendar */,
 				5243C1E42AC9390900A8030D /* StopWatch */,
 				AB6D35E42ACD29A2005AE5B4 /* Game */,
 			);

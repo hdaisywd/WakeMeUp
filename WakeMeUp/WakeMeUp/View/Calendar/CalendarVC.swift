@@ -65,6 +65,8 @@ class CalendarVC: UIViewController {
     }()
     override func viewWillAppear(_ animated: Bool) {
         // 유저 디폴트로 완료한 날짜 불러오기
+        navigationItem.title = "캘린더"
+        
         if let items = userdata.array(forKey: "completeDate") as? [String] {
             datesWithCat  = items
         }

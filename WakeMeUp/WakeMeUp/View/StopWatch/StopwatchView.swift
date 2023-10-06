@@ -30,7 +30,7 @@ class StopwatchView: UIView {
     private let watchDiameter = UIScreen.main.bounds.height/3
     private let buttonDiameter = UIScreen.main.bounds.width/6
     
-    // MARK: - stopwatchView
+    // MARK: - 스톱워치뷰
     let stopwatchView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
