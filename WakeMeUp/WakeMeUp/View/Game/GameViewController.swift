@@ -89,7 +89,8 @@ class GameViewController: UIViewController {
         catArmHand.clipsToBounds = true
         catArmHand.layer.cornerRadius = catArmHand.bounds.height / 2
         catArmHand.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMaxYCorner, .layerMaxXMaxYCorner)
-     
+        
+        alertStratButton()
     }
     
     // 결과창에서 돌아왔을 시 실행될 코드 - disMisBol의 값으로 바로 dismiss를 해준다
@@ -105,7 +106,7 @@ class GameViewController: UIViewController {
             disMisBol = 0
             self.navigationController?.popViewController(animated: true)
         }
-        alertStratButton()
+        
     }
     
 
