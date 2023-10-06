@@ -97,10 +97,14 @@ class AlarmVC: UIViewController {
             if let error = error {
                 print("Notification Error: ", error)
             } else {
-//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                if let gameVC = storyboard.instantiateViewController(withIdentifier: "GameVC") as? GameViewController {
-//                    self.navigationController?.pushViewController(gameVC, animated: true)
-//                }
+                print("프린트 문 ㅋ.ㅋ")
+                let storyboard = UIStoryboard(name: "GameVC", bundle: nil)
+                if let gameVC = storyboard.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController {
+                    DispatchQueue.main.async {
+                        Thread.sleep(forTimeInterval: 12.0)
+                        self.navigationController?.pushViewController(gameVC, animated: true)
+                    }
+                }
             }
         }
     }
