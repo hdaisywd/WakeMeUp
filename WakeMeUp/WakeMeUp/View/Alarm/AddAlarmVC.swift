@@ -5,6 +5,9 @@ import SnapKit
 
 class AddAlarmVC: UIViewController {
     
+    // MARK: Alarms Property
+    var saveAlarm: Alarms?
+    
     // MARK: Property
     private let datepicker = {
         let datepicker = UIDatePicker()
@@ -75,59 +78,32 @@ class AddAlarmVC: UIViewController {
         return daysView
     }()
     
-    private lazy var sound = {
-        let soundView = UIView()
-        
-        let soundLabel = UILabel()
-        soundLabel.text = "Sound"
-        soundLabel.textAlignment = .center
-        
-        let selectDays = SelectSoundPickerView()
-        
-        soundView.addSubview(soundLabel)
-        soundView.addSubview(selectDays)
-        
-        soundLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.centerY.equalTo(soundView.snp.centerY)
-            make.width.equalTo(self.labelWidth)
-        }
-        
-        selectDays.snp.makeConstraints { make in
-            make.left.equalTo(soundLabel.snp.right).offset(10)
-            make.centerY.equalTo(soundView.snp.centerY)
-            make.width.equalTo(self.viewWidth)
-        }
-        
-        return soundView
-    }()
-    
-    private lazy var selectRepeat = {
-        let selectRepeat = UIView()
-        
-        let label = UILabel()
-        label.text = "Repeat"
-        
-        let checkbox = UIButton()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .light)
-        let image = UIImage(systemName: "checkmark.circle", withConfiguration: imageConfig)
-        checkbox.setImage(image, for: .normal)
-        
-        selectRepeat.addSubview(label)
-        selectRepeat.addSubview(checkbox)
-        
-        label.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.centerY.equalTo(selectRepeat.snp.centerY)
-        }
-        
-        checkbox.snp.makeConstraints { make in
-            make.left.equalTo(label.snp.right).offset(5)
-            make.centerY.equalTo(selectRepeat.snp.centerY)
-        }
-        
-        return selectRepeat
-    }()
+//    private lazy var selectRepeat = {
+//        let selectRepeat = UIView()
+//
+//        let label = UILabel()
+//        label.text = "Repeat"
+//
+//        let checkbox = UIButton()
+//        let imageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .light)
+//        let image = UIImage(systemName: "checkmark.circle", withConfiguration: imageConfig)
+//        checkbox.setImage(image, for: .normal)
+//
+//        selectRepeat.addSubview(label)
+//        selectRepeat.addSubview(checkbox)
+//
+//        label.snp.makeConstraints { make in
+//            make.left.equalToSuperview()
+//            make.centerY.equalTo(selectRepeat.snp.centerY)
+//        }
+//
+//        checkbox.snp.makeConstraints { make in
+//            make.left.equalTo(label.snp.right).offset(5)
+//            make.centerY.equalTo(selectRepeat.snp.centerY)
+//        }
+//
+//        return selectRepeat
+//    }()
     
     // MARK: View Did Load
     override func viewDidLoad() {
@@ -156,8 +132,7 @@ class AddAlarmVC: UIViewController {
         view.addSubview(datepicker)
         view.addSubview(titleView)
         view.addSubview(days)
-        view.addSubview(sound)
-        view.addSubview(selectRepeat)
+//        view.addSubview(selectRepeat)
         
         datepicker.snp.makeConstraints { make in
             make.centerX.equalTo(self.view.snp.centerX)
@@ -178,29 +153,30 @@ class AddAlarmVC: UIViewController {
             make.height.equalTo(totalViewHeight)
         }
 
-        sound.snp.makeConstraints { make in
-            make.top.equalTo(days.snp.bottom).offset(5)
-            make.centerX.equalTo(self.view.snp.centerX)
-            make.width.equalTo(totalViewWidth)
-            make.height.equalTo(totalViewHeight)
-        }
-
-        selectRepeat.snp.makeConstraints { make in
-            make.top.equalTo(sound.snp.bottom).offset(5)
-            make.centerX.equalTo(self.view.snp.centerX)
-            make.width.equalTo(totalViewWidth)
-            make.height.equalTo(totalViewHeight)
-        }
-        
+//        selectRepeat.snp.makeConstraints { make in
+//            make.top.equalTo(days.snp.bottom).offset(5)
+//            make.centerX.equalTo(self.view.snp.centerX)
+//            make.right.equalTo(days.snp.right)
+//            make.width.equalTo(totalViewWidth)
+//            make.height.equalTo(totalViewHeight)
+//        }
         
     }
     
     @objc func cancelButtonAction() {
-
+        dismiss(animated: true)
     }
     
     @objc func saveButtonAction() {
+        let alarmManager = AlarmManager.shared
+        alarmManager.createData(title: "알람 제목", days: "월, 화", time: "08:00 AM", isAble: true, repeating: true)
 
+        if let presentingVC = self.presentingViewController as? AlarmVC {
+            presentingVC.loadData()
+            presentingVC.alarmList.reloadData()
+        }
+
+        dismiss(animated: true)
     }
     
     @objc func selectRepeatAction() {
