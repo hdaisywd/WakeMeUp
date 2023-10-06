@@ -1,8 +1,8 @@
 //
 //  TimerRingtoneTableViewCell.swift
-//  BezierPatchTest
+//  AudioTest
 //
-//  Created by 장가겸 on 10/2/23.
+//  Created by 장가겸 on 10/6/23.
 //
 
 import UIKit
@@ -12,14 +12,14 @@ class TimerRingtoneTableViewCell: UITableViewCell {
 
     let soundLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
+        label.text = "-----"
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        setupUI()
         setConstraint()
     }
 
@@ -28,7 +28,8 @@ class TimerRingtoneTableViewCell: UITableViewCell {
 
         NSLayoutConstraint.activate([
             soundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            soundLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
+            soundLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            soundLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
 
@@ -40,15 +41,12 @@ class TimerRingtoneTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setConstraint()
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been impl")
-    }
-
-    func setupUI() {
-        backgroundColor = UIColor(named: "ModalSettingTableViewColor")
-        soundLabel.textColor = .white
+        setConstraint()
     }
 }
