@@ -33,7 +33,7 @@ class StopwatchVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationItem.title = "스톱워치"
         if stopwatchManager.isRunning {
             animationStart()
         } else {
@@ -41,16 +41,7 @@ class StopwatchVC: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print("didtest")
-        super.viewDidAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        if stopwatchManager.isRunning {
-            animationStart()
-        } else {
-            animationStop()
-        }
-    }
+ 
     
     // MARK: - 랩 테이블
     func setupLapTable() {

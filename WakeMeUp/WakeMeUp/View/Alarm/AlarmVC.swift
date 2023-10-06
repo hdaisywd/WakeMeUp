@@ -68,7 +68,7 @@ class AlarmVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationItem.title = "Alarms"
+        navigationItem.title = "알람"
         createDummyData()
     }
     
@@ -101,8 +101,8 @@ class AlarmVC: UIViewController {
                 let storyboard = UIStoryboard(name: "GameVC", bundle: nil)
                 if let gameVC = storyboard.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController {
                     DispatchQueue.main.async {
-                        Thread.sleep(forTimeInterval: 12.0)
-                        self.navigationController?.pushViewController(gameVC, animated: true)
+//                        Thread.sleep(forTimeInterval: 12.0)
+//                        self.navigationController?.pushViewController(gameVC, animated: true)
                     }
                 }
             }

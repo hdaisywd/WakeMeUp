@@ -147,6 +147,12 @@ class TimerVC: UIViewController {
         ])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationItem.title = "타이머"
+    }
+    
     var paused: Bool = false{
         didSet{
             if(paused){
