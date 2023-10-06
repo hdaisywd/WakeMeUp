@@ -149,6 +149,7 @@ class CircularProgressView: UIView {
                 guard let self = self else { return
                 }
                 let remainingSeconds = self.pauseTime! - round(abs(date.timeIntervalSinceNow))
+                self.remainingSeconds = remainingSeconds
                 self.setTimeLabel(duration: remainingSeconds)
                 guard remainingSeconds >= 0 else {
                     self.sendNotification()
