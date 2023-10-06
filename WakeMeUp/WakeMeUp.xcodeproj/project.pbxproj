@@ -14,17 +14,17 @@
 		554BA1382ACCF61B00BFBDC5 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BA1372ACCF61B00BFBDC5 /* CircularProgressView.swift */; };
 		554BA13A2ACCF64800BFBDC5 /* TimerRingtoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BA1392ACCF64800BFBDC5 /* TimerRingtoneTableViewController.swift */; };
 		554BA13C2ACCF65D00BFBDC5 /* TimerRingtoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BA13B2ACCF65D00BFBDC5 /* TimerRingtoneTableViewCell.swift */; };
-		55791A662ACFC59D005C06C4 /* sky.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55791A612ACFC59D005C06C4 /* sky.mp3 */; };
-		55791A672ACFC59D005C06C4 /* iPhone-Alarm-Original.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55791A622ACFC59D005C06C4 /* iPhone-Alarm-Original.mp3 */; };
-		55791A682ACFC59D005C06C4 /* Howls-Moving-Castle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55791A632ACFC59D005C06C4 /* Howls-Moving-Castle.mp3 */; };
-		55791A692ACFC59D005C06C4 /* forest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55791A642ACFC59D005C06C4 /* forest.mp3 */; };
-		55791A6A2ACFC59D005C06C4 /* Chainsaw-Man-Opening.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55791A652ACFC59D005C06C4 /* Chainsaw-Man-Opening.mp3 */; };
 		AB1502EB2AC6152F00BBA7E4 /* MyTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1502EA2AC6152F00BBA7E4 /* MyTextfield.swift */; };
 		AB607DD12AC715C60022BCE1 /* SelectDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB607DD02AC715C60022BCE1 /* SelectDaysView.swift */; };
 		AB607DD52AC7389E0022BCE1 /* SelectSoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB607DD42AC7389E0022BCE1 /* SelectSoundView.swift */; };
 		AB607DE52ACD31D80022BCE1 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB607DE42ACD31D80022BCE1 /* AlarmManager.swift */; };
 		AB6D35E12ACD28E3005AE5B4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6D35E02ACD28E3005AE5B4 /* GameViewController.swift */; };
 		AB6D35E32ACD293E005AE5B4 /* CompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6D35E22ACD293E005AE5B4 /* CompleteViewController.swift */; };
+		AB7F6D362ACFC80B0042BE9E /* sky.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AB7F6D312ACFC80B0042BE9E /* sky.mp3 */; };
+		AB7F6D372ACFC80B0042BE9E /* iPhone-Alarm-Original.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AB7F6D322ACFC80B0042BE9E /* iPhone-Alarm-Original.mp3 */; };
+		AB7F6D382ACFC80B0042BE9E /* Chainsaw-Man-Opening.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AB7F6D332ACFC80B0042BE9E /* Chainsaw-Man-Opening.mp3 */; };
+		AB7F6D392ACFC80B0042BE9E /* Howls-Moving-Castle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AB7F6D342ACFC80B0042BE9E /* Howls-Moving-Castle.mp3 */; };
+		AB7F6D3A2ACFC80B0042BE9E /* forest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AB7F6D352ACFC80B0042BE9E /* forest.mp3 */; };
 		AB99C7E22AC25B1900033060 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7E12AC25B1900033060 /* CalendarVC.swift */; };
 		AB99C7E42AC25C1500033060 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7E32AC25C1500033060 /* Extension.swift */; };
 		AB99C7E62AC2A77B00033060 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7E52AC2A77B00033060 /* CustomTableViewCell.swift */; };
@@ -52,17 +52,17 @@
 		554BA1372ACCF61B00BFBDC5 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		554BA1392ACCF64800BFBDC5 /* TimerRingtoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerRingtoneTableViewController.swift; sourceTree = "<group>"; };
 		554BA13B2ACCF65D00BFBDC5 /* TimerRingtoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerRingtoneTableViewCell.swift; sourceTree = "<group>"; };
-		55791A612ACFC59D005C06C4 /* sky.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sky.mp3; path = ../../../../../Desktop/Xcode/AudioTest/AudioTest/SoundFiles/sky.mp3; sourceTree = "<group>"; };
-		55791A622ACFC59D005C06C4 /* iPhone-Alarm-Original.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "iPhone-Alarm-Original.mp3"; path = "../../../../../Desktop/Xcode/AudioTest/AudioTest/SoundFiles/iPhone-Alarm-Original.mp3"; sourceTree = "<group>"; };
-		55791A632ACFC59D005C06C4 /* Howls-Moving-Castle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Howls-Moving-Castle.mp3"; path = "../../../../../Desktop/Xcode/AudioTest/AudioTest/SoundFiles/Howls-Moving-Castle.mp3"; sourceTree = "<group>"; };
-		55791A642ACFC59D005C06C4 /* forest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = forest.mp3; path = ../../../../../Desktop/Xcode/AudioTest/AudioTest/SoundFiles/forest.mp3; sourceTree = "<group>"; };
-		55791A652ACFC59D005C06C4 /* Chainsaw-Man-Opening.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Chainsaw-Man-Opening.mp3"; path = "../../../../../Desktop/Xcode/AudioTest/AudioTest/SoundFiles/Chainsaw-Man-Opening.mp3"; sourceTree = "<group>"; };
 		AB1502EA2AC6152F00BBA7E4 /* MyTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextfield.swift; sourceTree = "<group>"; };
 		AB607DD02AC715C60022BCE1 /* SelectDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDaysView.swift; sourceTree = "<group>"; };
 		AB607DD42AC7389E0022BCE1 /* SelectSoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSoundView.swift; sourceTree = "<group>"; };
 		AB607DE42ACD31D80022BCE1 /* AlarmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
 		AB6D35E02ACD28E3005AE5B4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		AB6D35E22ACD293E005AE5B4 /* CompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewController.swift; sourceTree = "<group>"; };
+		AB7F6D312ACFC80B0042BE9E /* sky.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sky.mp3; path = ../../../../sky.mp3; sourceTree = "<group>"; };
+		AB7F6D322ACFC80B0042BE9E /* iPhone-Alarm-Original.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "iPhone-Alarm-Original.mp3"; path = "../../../../iPhone-Alarm-Original.mp3"; sourceTree = "<group>"; };
+		AB7F6D332ACFC80B0042BE9E /* Chainsaw-Man-Opening.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Chainsaw-Man-Opening.mp3"; path = "../../../../Chainsaw-Man-Opening.mp3"; sourceTree = "<group>"; };
+		AB7F6D342ACFC80B0042BE9E /* Howls-Moving-Castle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Howls-Moving-Castle.mp3"; path = "../../../../Howls-Moving-Castle.mp3"; sourceTree = "<group>"; };
+		AB7F6D352ACFC80B0042BE9E /* forest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = forest.mp3; path = ../../../../forest.mp3; sourceTree = "<group>"; };
 		AB99C7E12AC25B1900033060 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		AB99C7E32AC25C1500033060 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		AB99C7E52AC2A77B00033060 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
@@ -120,11 +120,11 @@
 		55791A552ACFB876005C06C4 /* SoundFiles */ = {
 			isa = PBXGroup;
 			children = (
-				55791A652ACFC59D005C06C4 /* Chainsaw-Man-Opening.mp3 */,
-				55791A642ACFC59D005C06C4 /* forest.mp3 */,
-				55791A632ACFC59D005C06C4 /* Howls-Moving-Castle.mp3 */,
-				55791A622ACFC59D005C06C4 /* iPhone-Alarm-Original.mp3 */,
-				55791A612ACFC59D005C06C4 /* sky.mp3 */,
+				AB7F6D332ACFC80B0042BE9E /* Chainsaw-Man-Opening.mp3 */,
+				AB7F6D352ACFC80B0042BE9E /* forest.mp3 */,
+				AB7F6D342ACFC80B0042BE9E /* Howls-Moving-Castle.mp3 */,
+				AB7F6D322ACFC80B0042BE9E /* iPhone-Alarm-Original.mp3 */,
+				AB7F6D312ACFC80B0042BE9E /* sky.mp3 */,
 			);
 			path = SoundFiles;
 			sourceTree = "<group>";
@@ -298,14 +298,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB7F6D392ACFC80B0042BE9E /* Howls-Moving-Castle.mp3 in Resources */,
 				ABEAB8E82AC1715600078F72 /* LaunchScreen.storyboard in Resources */,
-				55791A6A2ACFC59D005C06C4 /* Chainsaw-Man-Opening.mp3 in Resources */,
-				55791A662ACFC59D005C06C4 /* sky.mp3 in Resources */,
+				AB7F6D362ACFC80B0042BE9E /* sky.mp3 in Resources */,
 				ABEAB8E52AC1715600078F72 /* Assets.xcassets in Resources */,
-				55791A692ACFC59D005C06C4 /* forest.mp3 in Resources */,
+				AB7F6D3A2ACFC80B0042BE9E /* forest.mp3 in Resources */,
+				AB7F6D382ACFC80B0042BE9E /* Chainsaw-Man-Opening.mp3 in Resources */,
 				ABEAB8E02AC1715500078F72 /* Main.storyboard in Resources */,
-				55791A682ACFC59D005C06C4 /* Howls-Moving-Castle.mp3 in Resources */,
-				55791A672ACFC59D005C06C4 /* iPhone-Alarm-Original.mp3 in Resources */,
+				AB7F6D372ACFC80B0042BE9E /* iPhone-Alarm-Original.mp3 in Resources */,
 				ABEAB8F52AC1869C00078F72 /* GameVC.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
