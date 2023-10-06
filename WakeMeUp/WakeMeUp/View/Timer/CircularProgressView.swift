@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 protocol CircularProgressViewDelegate {
     func timeupView()
@@ -20,8 +21,10 @@ class CircularProgressView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     var delegate: CircularProgressViewDelegate?
+    let userNotificationCenter = UNUserNotificationCenter.current()
+    var notificationId = ""
     private var lineWidth: CGFloat = 15.0 { didSet { updatePaths() } }
     private let animationName = "progressAnimation"
     private var timer: Timer?
@@ -146,6 +149,7 @@ class CircularProgressView: UIView {
                 let remainingSeconds = self.pauseTime! - round(abs(date.timeIntervalSinceNow))
                 self.setTimeLabel(duration: remainingSeconds)
                 guard remainingSeconds >= 0 else {
+                    self.sendNotification()
                     self.stop()
                     self.delegate?.timeupView()
                     return
@@ -167,6 +171,39 @@ class CircularProgressView: UIView {
         self.progressLayer.strokeEnd = 0
         self.elapsed = 0
         self.fromValue = 0
+    }
+    func requestNotificationAuthorization() {
+        let authOptions = UNAuthorizationOptions(arrayLiteral: .alert, .badge, .sound)
+
+        self.userNotificationCenter.requestAuthorization(options: authOptions) { _, error in
+            if let error = error {
+                print("Error: \(error)")
+            }
+        }
+    }
+
+    func sendNotification() {
+        let notificationContent = UNMutableNotificationContent()
+
+        notificationContent.title = "시계"
+        notificationContent.body = "타이머"
+        notificationContent.sound = .default
+        notificationContent.badge = 1
+        self.notificationId = "Timer"
+        let request = UNNotificationRequest(identifier: "Timer",
+                                            content: notificationContent, trigger: nil)
+
+        self.userNotificationCenter.add(request) { error in
+            if let error = error {
+                print("Notification Error: ", error)
+            }
+        }
+    }
+
+    func removeNotification(identifier: String) {
+        let notification = UNUserNotificationCenter.current()
+        notification.removePendingNotificationRequests(withIdentifiers: [identifier])
+        print(identifier)
     }
 }
 
