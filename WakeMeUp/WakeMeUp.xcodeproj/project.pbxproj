@@ -35,6 +35,7 @@
 		ABEAB8F52AC1869C00078F72 /* GameVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABEAB8F42AC1869C00078F72 /* GameVC.storyboard */; };
 		ABEAB8F72AC186A600078F72 /* StopwatchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEAB8F62AC186A600078F72 /* StopwatchVC.swift */; };
 		ABEAB8F92AC186F600078F72 /* AlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEAB8F82AC186F600078F72 /* AlarmVC.swift */; };
+		ABEE4ABF2ACFA51900858184 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = ABEE4ABE2ACFA51900858184 /* FSCalendar */; };
 		ABFC99E92AC5D34400095448 /* AddAlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFC99E82AC5D34400095448 /* AddAlarmVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB99C7ED2AC2C9B700033060 /* SnapKit in Frameworks */,
+				ABEE4ABF2ACFA51900858184 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +227,7 @@
 			name = WakeMeUp;
 			packageProductDependencies = (
 				AB99C7EC2AC2C9B700033060 /* SnapKit */,
+				ABEE4ABE2ACFA51900858184 /* FSCalendar */,
 			);
 			productName = WakeMeUp;
 			productReference = ABEAB8D52AC1715400078F72 /* WakeMeUp.app */;
@@ -256,6 +259,7 @@
 			mainGroup = ABEAB8CC2AC1715400078F72;
 			packageReferences = (
 				AB99C7EB2AC2C9B700033060 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				ABEE4ABD2ACFA51900858184 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = ABEAB8D62AC1715400078F72 /* Products */;
 			projectDirPath = "";
@@ -542,6 +546,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		ABEE4ABD2ACFA51900858184 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -549,6 +561,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AB99C7EB2AC2C9B700033060 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		ABEE4ABE2ACFA51900858184 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ABEE4ABD2ACFA51900858184 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 
