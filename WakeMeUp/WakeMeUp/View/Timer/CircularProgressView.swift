@@ -25,6 +25,7 @@ class CircularProgressView: UIView {
     var delegate: CircularProgressViewDelegate?
     let userNotificationCenter = UNUserNotificationCenter.current()
     var notificationId = ""
+    var sound: String = "iPhone-Alarm-Original"
     private var lineWidth: CGFloat = 15.0 { didSet { updatePaths() } }
     private let animationName = "progressAnimation"
     private var timer: Timer?
@@ -38,21 +39,21 @@ class CircularProgressView: UIView {
 
     private let pulseLayer: CAShapeLayer = {
         let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = MyColor.pulseColor.cgColor
+        shapeLayer.strokeColor = MyColor.timer1.cgColor
         shapeLayer.fillColor = UIColor.clear.cgColor
         return shapeLayer
     }()
 
     private let backgroundLayer: CAShapeLayer = {
         let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = MyColor.pulseColor.cgColor
+        shapeLayer.strokeColor = MyColor.timer1.cgColor
         shapeLayer.fillColor = MyColor.stopWatchColor.cgColor
         return shapeLayer
     }()
 
     private let progressLayer: CAShapeLayer = {
         let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = MyColor.indicatorColor.cgColor
+        shapeLayer.strokeColor = MyColor.timer2.cgColor
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineCap = .round
         shapeLayer.strokeEnd = 0
@@ -186,10 +187,9 @@ class CircularProgressView: UIView {
 
     func sendNotification() {
         let notificationContent = UNMutableNotificationContent()
-
         notificationContent.title = "시계"
         notificationContent.body = "타이머"
-        notificationContent.sound = .default
+        notificationContent.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(self.sound).mp3"))
         notificationContent.badge = 1
         self.notificationId = "Timer"
         let request = UNNotificationRequest(identifier: "Timer",

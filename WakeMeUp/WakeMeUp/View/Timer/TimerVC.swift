@@ -4,9 +4,10 @@ import UIKit
 import UserNotifications
 
 class TimerVC: UIViewController {
-    let circularProgressView = CircularProgressView()
+    lazy var circularProgressView = CircularProgressView()
     let userNotificationCenter = UNUserNotificationCenter.current()
     var notificationId = ""
+    var alarmSound: String? { didSet { ringtoneLabel.text = alarmSound } }
     
     let timeLabel: UILabel = {
         let label = UILabel()
@@ -68,7 +69,7 @@ class TimerVC: UIViewController {
     
     private let ringtoneLabel: UILabel = {
         let label = UILabel()
-        label.text = "명상음"
+        label.text = "기본음"
         return label
     }()
     
@@ -92,7 +93,7 @@ class TimerVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.alarmSound = "기본음"
         self.circularProgressView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.circularProgressView)
         self.circularProgressView.isHidden = true
@@ -239,8 +240,11 @@ class TimerVC: UIViewController {
     
     @objc func ringtoneLabelTapped(_ sender: UITapGestureRecognizer) {
         let vc = TimerRingtoneTableViewController()
+        vc.Delegate = self
+        vc.selectedSoundFromTimerViewController = alarmSound
         vc.modalPresentationStyle = .popover
         present(vc, animated: true)
+        guard let alarmSound = alarmSound else { return alarmSound = "기본음" }
     }
 }
 
@@ -304,5 +308,12 @@ extension UIPickerView {
             label.frame = CGRect(x: labelX, y: labelY, width: fontSize, height: fontSize)
             addSubview(label)
         }
+    }
+}
+
+extension TimerVC: TestDelegate {
+    func test(music: String, alarmSound: String) {
+        circularProgressView.sound = music
+        self.alarmSound = alarmSound
     }
 }

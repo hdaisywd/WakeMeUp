@@ -7,10 +7,15 @@
 import AVFoundation
 import UIKit
 
+protocol TestDelegate: AnyObject {
+    func test(music: String, alarmSound: String)
+}
+
 class TimerRingtoneTableViewController: UIViewController {
+    weak var Delegate: TestDelegate?
     var audioPlayer: AVAudioPlayer?
     private var soundList: [String] = ["forest", "Chainsaw-Man-Opening", "Howls-Moving-Castle", "iPhone-Alarm-Original", "sky"]
-    let selectedSoundFromTimerViewController: String? = "기본음"
+    var selectedSoundFromTimerViewController: String? = "기본음"
     let tableView: UITableView = {
         let tableview = UITableView()
         tableview.translatesAutoresizingMaskIntoConstraints = false
@@ -119,7 +124,7 @@ extension TimerRingtoneTableViewController: UITableViewDataSource {
         cell.accessoryType = .none
         cell.tintColor = .systemOrange
 
-        if soundName == selectedSoundFromTimerViewController! {
+        if soundName == selectedSoundFromTimerViewController {
             cell.accessoryType = .checkmark
         }
         return cell
@@ -133,9 +138,40 @@ extension TimerRingtoneTableViewController: UITableViewDelegate {
         }
 
         tableView.visibleCells[indexPath.row].accessoryType = .checkmark
+        switch indexPath.row {
+        case 0:
+            let sound = soundList[0]
+            let translateName = translateSoundNameToKorean(text: sound)
+            Delegate?.test(music: sound, alarmSound: translateName)
+            print(sound)
+        case 1:
+            let sound = soundList[1]
+            let translateName = translateSoundNameToKorean(text: sound)
+            Delegate?.test(music: sound, alarmSound: translateName)
+            print(sound)
+        case 2:
+            let sound = soundList[2]
+            let translateName = translateSoundNameToKorean(text: sound)
+            Delegate?.test(music: sound, alarmSound: translateName)
+            print(sound)
+        case 3:
+            let sound = soundList[3]
+            let translateName = translateSoundNameToKorean(text: sound)
+            Delegate?.test(music: sound, alarmSound: translateName)
+            print(sound)
+        case 4:
+            let sound = soundList[4]
+            let translateName = translateSoundNameToKorean(text: sound)
+            Delegate?.test(music: sound, alarmSound: translateName)
+            print(sound)
+        default:
+            let sound = soundList[3]
+            let translateName = translateSoundNameToKorean(text: sound)
+            Delegate?.test(music: sound, alarmSound: translateName)
+            print(sound)
+        }
 
         let url = Bundle.main.url(forResource: translateSoundName(text: label.soundLabel.text!), withExtension: "mp3")
-        print(label.soundLabel.text)
         if let url = url {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
